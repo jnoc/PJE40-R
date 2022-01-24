@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
+# this script must be run as 'sudo ./setup.sh'
 
 echo "This is a shell setup script"
 
 echo "Regenerating machine ID"
+# this stops virtual bridging issues where the same ip is assigned to the clone of the original
+# the netplan file also has 'dchp-identifier: mac' added inorder to mitigate the issue straight away after deployed
+# this is solely to get it working with multiple cloned virtualboxes however could be of use for virtualisation softwares
 rm -f /etc/machine-id
 dbus-uuidgen --ensure=/etc/machine-id
 rm /var/lib/dbus/machine-id
 dbus-uuidgen --ensure
 echo "Regen done!"
-
 
 echo "What is the new hostname for this system? (be careful upon input)"
 OLDHOST=$(hostname)
