@@ -24,6 +24,7 @@ sed -i "s/${OLDHOST}/${NEWHOST}/" /etc/hostname
 # this assigns a static ip address for the node which is predetmined according to the design of the network
 echo "What is the static ip address needed for this server?"
 echo "Refer to the network design for the specific ip address for this node"
+echo "10.1.100.XXX - Where the entered XXX is the assigned ending"
 read STATIC
 
 sed -i "s/- 10.1.100.138\/24/- 10.1.100.${STATIC}\/24/" /etc/netplan/00-installer-config.yaml
