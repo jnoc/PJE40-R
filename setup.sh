@@ -26,6 +26,6 @@ echo "What is the static ip address needed for this server?"
 echo "Refer to the network design for the specific ip address for this node"
 read STATIC
 
-sed -i "s/- 10.1.100.50\/24/- 10.1.100.${STATIC}\/24/" /etc/netplan/00-installer-config.yaml
+sed -i "s/- 10.1.100.138\/24/- 10.1.100.${STATIC}\/24/" /etc/netplan/00-installer-config.yaml
 
 reboot
