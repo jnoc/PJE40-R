@@ -1,9 +1,8 @@
 ## This is to be run fron proj-data (the client and data collection machine)
-
 import subprocess
 
 # commands
-shutOffNodes = "pssh -i -h shut_hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
+shutOffNodes = "pssh -i -h shut-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
 telegrafStart = "pssh -i -h test-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' systemctl start telegraf"
 telegrafStop = "pssh -i -h test-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' systemctl stop telegraf"
 nodesOnline = "pssh -i -h test-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' hostname"
