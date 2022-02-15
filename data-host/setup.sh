@@ -14,3 +14,6 @@ wget https://dl.grafana.com/enterprise/release/grafana-enterprise-8.3.6-1.x86_64
 yum -y install grafana-enterprise-8.3.6-1.x86_64.rpm
 systemctl enable grafana-server
 systemctl start grafana-server
+
+# install python
+yum -y install python3

@@ -2,7 +2,7 @@
 import subprocess
 
 # commands
-shutOffNodes = "pssh -i -h shut-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
+shutOffNodes = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
 telegrafStart = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' systemctl start telegraf"
 telegrafStop = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' systemctl stop telegraf"
 nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' hostname"
@@ -13,13 +13,12 @@ commands = [shutOffNodes, telegrafStart, telegrafStop, nodesOnline]
 # main program start
 def main():
     set = ["1", "2", "3", "4", "Q", "q"]
-    print("Files in use: shut-hosts.txt, all-nodes.txt")
+    print("[!] Files in use: shutoff-hosts.txt, all-nodes.txt")
     print('''
-    1 = Shut off nodes (shut_hosts.txt is used here)
+    1 = Shut off nodes (shutoff-hosts.txt is used here)
     2 = Start telegraf across the cluster
     3 = Stop telegraf across the cluster
     4 = Check the amount of nodes online across the cluster
-    5 = Open Grafana in Chrome
     Q = Exit program
     ''')
     while True:
