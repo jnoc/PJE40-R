@@ -27,6 +27,6 @@ echo "Refer to the network design for the specific ip address for this node"
 echo "10.1.100.XXX - Where the entered XXX is the assigned ending"
 read STATIC
 
-sed -i "s/- 10.1.100.138\/24/- 10.1.100.${STATIC}\/24/" /etc/netplan/00-installer-config.yaml
+sed -i "s/- 10.1.100.149\/24/- 10.1.100.${STATIC}\/24/" /etc/netplan/00-installer-config.yaml
 
 reboot
