@@ -3,6 +3,7 @@ import time
 import subprocess as sp 
 from datetime import datetime
 import threading
+import re
 
 print("[\033[93mAlert\033[0m] careful with this input! It needs to be the full path.")
 mountpoint = str(input("[Enter] DFS mountpoint: "))
@@ -32,12 +33,12 @@ fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{
 # random r/w/rw                                                  change XXM
 fioBenchRRead = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode randread" # --output directory
 fioBenchRWrite = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode randwrite" # --output directory
-fioBenchRRW = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode randrw" # --output directory
+fioBenchRRW = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode randrw --rwmixread 50" # --output directory
 
 # sequential r/w/rw
 fioBenchRead = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode read" # --output directory
 fioBenchWrite = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode write" # --output directory
-fioBenchRW = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode readwrite" # --output directory
+fioBenchRW = "bench-fio --target /mnt/mfs --type directory -b 2M --size 4M --mode readwrite --rwmixread 50" # --output directory
 
 
 # keep track
@@ -83,7 +84,7 @@ def menuHandle(option):
     #print(err)
 
 def fioScreen():
-    set = ["1", "2", "3", "4", "E", "e", "Q", "q", "S", "s"]
+    set = ["1", "2", "3", "4", "5", "6", "E", "e", "Q", "q", "S", "s"]
     print("\n[\033[93m!\033[0m] Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     fioMenu()
     while True:
@@ -174,7 +175,7 @@ def fioSetCommandsHandle(value, index):
                 sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
                 #start = time.process_time()
                 print("-> Shutting off node(s)")
-            print("-> Starting FIO")
+            print("-> Starting FIO task {}".format(i + 1))
             #end = time.process_time()
             target=sp.Popen("echo '\n\n{0}{1}\n\n' | tee -a fio-result.txt".format("Command: ",value[index][i]), stdout=sp.PIPE, shell=True)
             # run set FIO command (iterate through set commands list)
@@ -200,10 +201,17 @@ def fioSetCommandsHandle(value, index):
     print("-> Results saved to {}\n".format(file))    
 
 def fioBenchHandle(value, index):
-    var = ["rand", "seq"]
-    path = "./fio-results-{}"
+    var = [["randread", "randwrite","randreadwrite"],["read","write","readwrite"]]
+    now = datetime.now()
+    name = re.match('^\/.*\/(.*)$', mountpoint).group(1)
     for i in range(len(value[index])):
-        print()
+        try:
+            print("-> Starting FIO task {}".format(i + 1))
+            path = "./fio-results-{0}/{1}-{2}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index][i], name)
+            sp.Popen("{0}{1}{2}".format(value[index][i], " --output ", path), shell=True, stdout=sp.PIPE)
+        except:
+            print("\n-> Something went wrong with the command!")
+            return
     print("")
 
 def mainMenu():
