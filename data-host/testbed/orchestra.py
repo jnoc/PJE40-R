@@ -4,6 +4,7 @@ import subprocess as sp
 from datetime import datetime
 import threading
 import re
+import alive_progress as ap
 
 print("[\033[93mAlert\033[0m] careful with this input! It needs to be the full path.")
 mountpoint = str(input("[Enter] DFS mountpoint: "))
@@ -85,7 +86,6 @@ def menuHandle(option):
 
 def fioScreen():
     set = ["1", "2", "3", "4", "5", "6", "E", "e", "Q", "q", "S", "s"]
-    print("\n[\033[93m!\033[0m] Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     fioMenu()
     while True:
         try:
@@ -102,8 +102,9 @@ def fioScreen():
                     fioHandle(option)
             else:
                 print("-> Invalid input please retry\n")
-        except ValueError:
+        except ValueError as e:
             print("-> Invalid input please retry\n")
+            print(e)
 
 def fioHandle(option):
     global Tnf, Tfd, Tf
@@ -151,11 +152,11 @@ def fioSetCommandsHandle(value, index):
     var = ["rand", "seq"]
     now = datetime.now()
     if Tfd == True:
-        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "Tfd")
+        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "tfd")
     elif Tnf == True:
-        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "Tnf")
+        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "tnf")
     else:
-        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "Tf")
+        file = "fio-result-{0}-{1}-{2}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "tf")
     # makes file for results to tee into (built into the set command)
     sp.Popen("touch fio-result.txt", shell=True)
     sp.Popen("echo '{}' | tee -a fio-result.txt".format(file), stdout=sp.PIPE, shell=True)
@@ -167,7 +168,7 @@ def fioSetCommandsHandle(value, index):
             command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
             sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
             print("-> Shutting off node(s)")
-    for i in range(len(value[index])):
+    """ for i in range(len(value[index])):
         try:
             if Tfd == True:
                 specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd): "))
@@ -195,24 +196,67 @@ def fioSetCommandsHandle(value, index):
         except:
             print("\n-> Something went wrong with the command!")
             sp.Popen("rm fio-result.txt", shell=True, stdout=sp.PIPE)
-            return
+            return """
+    items = range(len(value[index]))
+    print()
+    with ap.alive_bar(len(items), title="FIO Command", bar='classic2', spinner='classic', enrich_print=False) as bar:
+        for item in items:
+            try:
+                if Tfd == True:
+                    specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd): "))
+                    command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
+                    sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
+                    #start = time.process_time()
+                    print("-> Shutting off node(s)")
+                #end = time.process_time()
+                target=sp.Popen("echo '\n\n{0}{1}\n\n' | tee -a fio-result.txt".format("Command: ",value[index][item]), stdout=sp.PIPE, shell=True)
+                # run set FIO command (iterate through set commands list)
+                main = sp.Popen(value[index][item], stdout=sp.PIPE, shell=True)
+                # DEBUG (stdout, stderr) = main.communicate()
+                exit_code = main.wait()
+                #print(end - start)
+                # DEBUG print(stderr, exit_code)
+                # format results to be readable
+                # cleans up the file created from FIO
+                cleanup = sp.Popen("rm {}/test".format(mountpoint), stdout=sp.PIPE, shell=True)
+                # DEBUG (stdout, stderr) = cleanup.communicate()
+                exit_code = cleanup.wait()
+                # DEBUG print(stderr, exit_code)
+                if Tfd == True and item < (len(value[index]) - 1) :
+                    input("[Enter] when ready to continue: ")
+                bar()
+            except:
+                print("\n-> Something went wrong with the command!")
+                sp.Popen("rm fio-result.txt", shell=True, stdout=sp.PIPE)
+                return
     # moves fio results to the date and time that was started from
     sp.Popen("mv fio-result.txt {}".format(file), shell=True)
     print("-> Results saved to {}\n".format(file))    
 
 def fioBenchHandle(value, index):
-    var = [["randread", "randwrite","randreadwrite"],["read","write","readwrite"]]
+    var = [["randread", "randwrite","randrw"],["seqread","seqwrite","seqrw"]]
     now = datetime.now()
     name = re.match('^\/.*\/(.*)$', mountpoint).group(1)
-    for i in range(len(value[index])):
+    """ for i in range(len(value[index])):
         try:
             print("-> Starting FIO task {}".format(i + 1))
-            path = "./fio-results-{0}/{1}-{2}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index][i], name)
-            sp.Popen("{0}{1}{2}".format(value[index][i], " --output ", path), shell=True, stdout=sp.PIPE)
+            path = "./fio-bench-{0}/{1}-{2}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index][i], name)
+            sp.Popen("{0}{1}{2}{3}".format(value[index][i], " --output ", path, " --dry-run"), shell=True, stdout=sp.PIPE)
         except:
             print("\n-> Something went wrong with the command!")
-            return
-    print("")
+            return """
+    items = range(len(value[index]))
+    with ap.alive_bar(len(items), title="FIO Benchmarking ", bar='classic2', spinner='classic') as bar:
+        for item in items:
+            try:
+                path = "./fio-bench-{0}/{1}-{2}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index][item], name)
+                sp.Popen("{0}{1}{2}{3}".format(value[index][item], " --output ", path, " --dry-run"), shell=True, stdout=sp.PIPE)
+                bar()
+            except:
+                print("\n-> Something went wrong with the command!")
+                return
+    print()
+                
 
 def mainMenu():
     print('''
@@ -230,6 +274,8 @@ def mainMenu():
 
 def fioMenu():
     print('''
+    \n[\033[93m!\033[0m] Tnf: {0}, Tf: {1}, Tfd: {2}
+
     [\033[95mFIO Submenu\033[0m]
 
     1 = Run FIO commands for mixed random r/w/rw
@@ -242,8 +288,7 @@ def fioMenu():
     S = Print this submenu
     E = Back to menu
     Q = Exit program
-    ''')
-
+    '''.format(Tnf, Tf, Tfd))
 
 if __name__ == "__main__":
     main()
