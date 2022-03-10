@@ -22,24 +22,24 @@ nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyCh
 
 # fio commands                                                                                              change XXM
 # random r/w/rw
-fioSetTestRRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=randrw --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randrw --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 # sequential r/w/rw
-fioSetTestRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=read --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=write --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=2M --size=100M --readwrite=readwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=read --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=write --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=readwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 
 # fio benchmark
 # random r/w/rw                                                  change XXM
-fioBenchRRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode randread" # --output directory
-fioBenchRWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode randwrite" # --output directory
-fioBenchRRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode randrw --rwmixread 50" # --output directory
+fioBenchRRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randread" # --output directory
+fioBenchRWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randwrite" # --output directory
+fioBenchRRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randrw --rwmixread 50" # --output directory
 
 # sequential r/w/rw
-fioBenchRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode read" # --output directory
-fioBenchWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode write" # --output directory
-fioBenchRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 10M --mode readwrite --rwmixread 50" # --output directory
+fioBenchRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode read" # --output directory
+fioBenchWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode write" # --output directory
+fioBenchRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode readwrite --rwmixread 50" # --output directory
 
 
 # keep track
@@ -291,6 +291,9 @@ def fioBenchHandle(value, index):
                 path = "./fio-bench-{0}-{1}-{2}/{3}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var2[index], name, var[index][item])
                 bench = sp.Popen("{0}{1}{2}".format(value[index][item], " --output ", path), shell=True, stdout=sp.PIPE)
                 bench.wait()
+                # remove bechfiles for fair test
+                cleanup = sp.Popen("rm {}/i*".format(mountpoint), stdout=sp.PIPE, shell=True)
+                cleanup.wait()
                 bar()
             except:
                 print("\n-> Something went wrong with the command!")
