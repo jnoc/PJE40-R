@@ -1,10 +1,9 @@
 ## This is to be run fron proj-data (the client and data collection machine)
-import time
 import subprocess as sp 
 from datetime import datetime
-import threading
 import re
 import alive_progress as ap
+from statistics import mean
 
 print("[\033[93mAlert\033[0m] careful with this input! It needs to be the full path.")
 mountpoint = str(input("[Enter] DFS mountpoint: "))
@@ -19,31 +18,31 @@ shutOffNodes = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHost
 telegrafStart = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'systemctl start telegraf; sleep 1; systemctl status telegraf | grep Active'"
 telegrafStop = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'systemctl stop telegraf; sleep 1; systemctl status telegraf | grep Active'"
 nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'echo online'"
+pingHosts = "nmap -sn -iL all-nodes.txt"
 
 # fio commands                                                                                              change XXM
 # random r/w/rw
-fioSetTestRRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=randrw --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randrw --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 # sequential r/w/rw
-fioSetTestRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=read --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=write --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
-fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=100M --readwrite=readwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=read --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=write --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
+fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=readwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 
 # fio benchmark
 # random r/w/rw                                                  change XXM
-fioBenchRRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randread" # --output directory
-fioBenchRWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randwrite" # --output directory
-fioBenchRRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode randrw --rwmixread 50" # --output directory
+fioBenchRRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randread".format(mountpoint) # --output directory
+fioBenchRWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randwrite".format(mountpoint) # --output directory
+fioBenchRRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randrw --rwmixread 50".format(mountpoint) # --output directory
 
 # sequential r/w/rw
-fioBenchRead = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode read" # --output directory
-fioBenchWrite = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode write" # --output directory
-fioBenchRW = "bench-fio --target /mnt/mfs --type directory -b 4k --size 50M --mode readwrite --rwmixread 50" # --output directory
-
+fioBenchRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode read".format(mountpoint) # --output directory
+fioBenchWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode write".format(mountpoint) # --output directory
+fioBenchRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode readwrite --rwmixread 50".format(mountpoint) # --output directory
 
 # keep track
-commands = [shutOffNodes, telegrafStart, telegrafStop, nodesOnline, nodesOnline]
+commands = [shutOffNodes, telegrafStart, telegrafStop, nodesOnline, nodesOnline, pingHosts]
 fioSetRandCommands = [fioSetTestRRead, fioSetTestRWrite, fioSetTestRRW]
 fioSetSeqCommands = [fioSetTestRead, fioSetTestWrite, fioSetTestRW]
 fioBenchRandCommands = [fioBenchRRead, fioBenchRWrite, fioBenchRRW]
@@ -55,27 +54,28 @@ fioAllBenchCommands = [fioBenchRandCommands, fioBenchSeqCommands]
 
 # main program start
 def main():
-    set = ["1", "2", "3", "4", "5", "6", "Q", "q", "S", "s"]
+    set = ["1", "2", "3", "4", "5", "6", "7", "Q", "q", "S", "s"]
     print("\n[\033[93m!\033[0m] Files in use: shutoff-hosts.txt, all-nodes.txt")
     print("[\033[93m!\033[0m] Mountpoint set to: \033[91m{}\033[0m".format(mountpoint))
     mainMenu()
     while True:
         try:
-            option = str(input("[Enter] an option value: "))
+            option = str(input("\n[Enter] an option value: "))
             if option in set:
                 if option == "Q" or option == "q":
                     print()
                     exit()
                 elif option == "S" or option == "s":
                     mainMenu()
-                elif option == "6":
+                elif option == "7":
                     fioScreen()
                 else:
                     menuHandle(option)
             else:
-                print("-> Invalid input please retry\n")
-        except ValueError:
-            print("-> Invalid input please retry\n")
+                print("-> Invalid input please retry")
+        except ValueError as e:
+            print("-> Invalid input please retry")
+            print(e)
 
 def menuHandle(option):
     proc = sp.Popen("{0}{1}".format(sshPass, commands[(int(option) - 1)]), stdout=sp.PIPE, shell=True)
@@ -85,37 +85,41 @@ def menuHandle(option):
         num_lines = sum(1 for _ in open('shutoff-hosts.txt'))
         match = len(re.findall('closed by remote host', str(out)))
         if match == num_lines:
-            print("-> {} host(s) have been shutoff\n".format(match))
+            print("-> {} host(s) have been shutoff".format(match))
         else:
-            print("-> Only {0} host(s) have been shutoff out of {1}, further investigation needed\n".format(match, num_lines))
+            print("-> Only {0} host(s) have been shutoff out of {1}, further investigation needed".format(match, num_lines))
     elif option == "2":
         num_lines = sum(1 for _ in open('all-nodes.txt'))
         match = len(re.findall('Active: active', str(out)))
         if match == num_lines:
-            print("-> All host(s) had telegraf agent started\n")
+            print("-> All host(s) had telegraf agent started")
         else:
-            print("-> Only {0} host(s) had telegraf agent started out of {1}, further investigation needed\n".format(match, num_lines))
+            print("-> Only {0} host(s) had telegraf agent started out of {1}, further investigation needed".format(match, num_lines))
     elif option == "3":
         num_lines = sum(1 for _ in open('all-nodes.txt'))
         match = len(re.findall('Active: inactive', str(out)))
         if match == num_lines:
-            print("-> All host(s) had telegraf agent stopped\n")
+            print("-> All host(s) had telegraf agent stopped")
         else:
-            print("-> Only {0} host(s) had telegraf agent stopped out of {1}, further investigation needed\n".format(match, num_lines))
+            print("-> Only {0} host(s) had telegraf agent stopped out of {1}, further investigation needed".format(match, num_lines))
     elif option == "4":
         num_lines = sum(1 for _ in open('all-nodes.txt'))
         match = len(re.findall('online', str(out)))
         if match == num_lines:
-            print("-> {} host(s) online\n".format(match))
+            print("-> {} host(s) online".format(match))
         else:
-            print("-> Only {0} host(s) online out of {1}, further investigation needed\n".format(match, num_lines))
+            print("-> Only {0} host(s) online out of {1}, further investigation needed".format(match, num_lines))
     elif option == "5":
-        num_lines = sum(1 for _ in open('all-nodes.txt'))
         match = re.findall('\[FAILURE\]\W(node-\d\d|master-\d\d)', str(out))
         if len(match) != 0:
-            print("-> {} are offline\n".format(match))
+            print("-> {} are offline".format(match))
         else:
-            print("-> {} host(s) are offline\n".format(len(match)))
+            print("-> {} host(s) are offline".format(len(match)))
+    elif option == "6":
+        menuHandle("4")
+        match = re.findall('\((\d*.\d*|\d*)s latency\)', str(out))
+        match = list(map(float, match))
+        print("-> Cluster latency, client <-> cluster \n-> min/avg/max {0:.5f}ms/{1:.5f}ms/{2:.5f}ms".format(min(match), mean(match), max(match)))
     else:
         print("Error")
         exit()
@@ -126,7 +130,7 @@ def fioScreen():
     fioMenu()
     while True:
         try:
-            option = str(input("[Enter] an option value: "))
+            option = str(input("\n[Enter] an option value: "))
             if option in set:
                 if option == "E" or option == "e":
                     break
@@ -138,9 +142,9 @@ def fioScreen():
                 else:
                     fioHandle(option)
             else:
-                print("-> Invalid input please retry\n")
+                print("-> Invalid input please retry")
         except ValueError as e:
-            print("-> Invalid input please retry\n")
+            print("-> Invalid input please retry")
             print(e)
 
 def fioHandle(option):
@@ -162,7 +166,7 @@ def fioHandle(option):
             Tf = False
             Tfd = False
             print("-> Normal execution (Tnf) set")
-        print("-> Tnf: {0}, Tf: {1}, Tfd: {2}\n".format(Tnf, Tf, Tfd))
+        print("-> Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     elif option == "4":
         if Tfd == False:
             Tfd = True
@@ -174,7 +178,7 @@ def fioHandle(option):
             Tnf = True
             Tf = False
             print("-> Failure during (Tfd) disabled")
-        print("-> Tnf: {0}, Tf: {1}, Tfd: {2}\n".format(Tnf, Tf, Tfd))
+        print("-> Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     elif option == "5":
         # Set Bench commands random r/w/rw
         fioBenchHandle(fioAllBenchCommands, 0)
@@ -269,7 +273,7 @@ def fioSetCommandsHandle(value, index):
                 return
     # moves fio results to the date and time that was started from
     sp.Popen("mv fio-result.txt {}".format(file), shell=True)
-    print("-> Results saved to {}\n".format(file))    
+    print("-> Results saved to {}".format(file))    
 
 def fioBenchHandle(value, index):
     var = [["randread", "randwrite","randrw"],["seqread","seqwrite","seqrw"]]
@@ -309,7 +313,8 @@ def mainMenu():
     3 = Stop telegraf across the cluster
     4 = Check the amount of nodes online across the cluster
     5 = Check the amount of nodes offline across the cluster
-    6 = FIO command submenu
+    6 = Measure average latency of client to cluster
+    7 = FIO command submenu
 
     S = Print this menu
     Q = Exit program
