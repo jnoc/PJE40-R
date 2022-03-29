@@ -1,15 +1,32 @@
 ## This is to be run fron proj-data (the client and data collection machine)
+from asyncio import subprocess
 import subprocess as sp 
 from datetime import datetime
 import re
 import alive_progress as ap
 from statistics import mean
+import configparser
 
-print("[\033[93mAlert\033[0m] careful with this input! It needs to be the full path.")
-mountpoint = str(input("[Enter] DFS mountpoint: "))
-Tfd = False
-Tnf = True
-Tf = False
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+mountpoint = config.get('default','mountpoint')
+
+print("[\033[93mAlert\033[0m] Make sure config.ini is up to-date!")
+#mountpoint = str(input("[Enter] DFS mountpoint: "))
+pointer = mountpoint
+
+def export():    
+    
+    mountpoint = config.get('default','mountpoint')
+    Tfd = eval(config.get('default','tfd'))
+    Tnf = eval(config.get('default','tnf'))
+    Tf = eval(config.get('default','tf'))
+    
+    modeType = [Tfd, Tnf, Tf]
+    array = [mountpoint, modeType]
+
+    return array
 
 # commands
 sshPass = "sshpass -f sshpass "
@@ -126,7 +143,11 @@ def menuHandle(option):
 
 
 def fioScreen():
-    set = ["1", "2", "3", "4", "5", "6", "E", "e", "Q", "q", "S", "s"]
+    global Tfd, Tnf, Tf
+    Tfd = eval(config.get('default','tfd'))
+    Tnf = eval(config.get('default','tnf'))
+    Tf = eval(config.get('default','tf'))
+    set = ["1", "2", "3", "4", "5", "6", "7", "E", "e", "D", "d", "Q", "q", "S", "s"]
     fioMenu()
     while True:
         try:
@@ -139,13 +160,19 @@ def fioScreen():
                     exit()
                 elif option == "S" or option == "s":
                     fioMenu()
+                elif option == "D" or option == "d":
+                    demo()
+                elif option == "7":
+                    #new()
+                    run = sp.Popen(["python3", "module.py"])
+                    run.wait()
                 else:
                     fioHandle(option)
             else:
                 print("-> Invalid input please retry")
         except ValueError as e:
             print("-> Invalid input please retry")
-            print(e)
+            #print(e)
 
 def fioHandle(option):
     global Tnf, Tfd, Tf
@@ -157,27 +184,41 @@ def fioHandle(option):
         fioSetCommandsHandle(fioAllSetCommands, 1)
     elif option == "3":
         if Tnf == True:
-            Tnf = False
-            Tf = True # makes sure Tf and Tnf are both not == true
-            Tfd = False
+            Tnf = config.set('default','tnf', "False")
+            Tf = config.set('default','tf', "True") # makes sure Tf and Tnf are both not == true
+            Tfd = config.set('default','tfd', "False")
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
             print("-> Failure execution (Tf) set")
         else:
-            Tnf = True
-            Tf = False
-            Tfd = False
+            Tnf = config.set('default','tnf', "True")
+            Tf = config.set('default','tf', "False")
+            Tfd = config.set('default','tfd', "False")
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
             print("-> Normal execution (Tnf) set")
+        Tfd = eval(config.get('default','tfd'))
+        Tnf = eval(config.get('default','tnf'))
+        Tf = eval(config.get('default','tf'))
         print("-> Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     elif option == "4":
         if Tfd == False:
-            Tfd = True
-            Tnf = False # makes sure Tf and Tnf are both not == false
-            Tf = False
+            Tfd = config.set('default','tfd', "True")
+            Tnf = config.set('default','tnf', "False") # makes sure Tf and Tnf are both not == false
+            Tf = config.set('default','tf', "False")
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
             print("-> Failure during (Tfd) set")
         else:
-            Tfd = False
-            Tnf = True
-            Tf = False
+            Tfd = config.set('default','tfd', "False")
+            Tnf = config.set('default','tnf', "True")
+            Tf = config.set('default','tf', "False")
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
             print("-> Failure during (Tfd) disabled")
+        Tfd = eval(config.get('default','tfd'))
+        Tnf = eval(config.get('default','tnf'))
+        Tf = eval(config.get('default','tf'))
         print("-> Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     elif option == "5":
         # Set Bench commands random r/w/rw
@@ -188,6 +229,9 @@ def fioHandle(option):
     else:
         print("Error")
         exit()
+
+
+
 
 def fioSetCommandsHandle(value, index):
     # gets file 
@@ -211,35 +255,6 @@ def fioSetCommandsHandle(value, index):
             command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
             sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
             print("-> Shutting off node(s)")
-    """ for i in range(len(value[index])):
-        try:
-            if Tfd == True:
-                specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd): "))
-                command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
-                sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
-                #start = time.process_time()
-                print("-> Shutting off node(s)")
-            print("-> Starting FIO task {}".format(i + 1))
-            #end = time.process_time()
-            target=sp.Popen("echo '\n\n{0}{1}\n\n' | tee -a fio-result.txt".format("Command: ",value[index][i]), stdout=sp.PIPE, shell=True)
-            # run set FIO command (iterate through set commands list)
-            main = sp.Popen(value[index][i], stdout=sp.PIPE, shell=True)
-            # DEBUG (stdout, stderr) = main.communicate()
-            exit_code = main.wait()
-            #print(end - start)
-            # DEBUG print(stderr, exit_code)
-            # format results to be readable
-            # cleans up the file created from FIO
-            cleanup = sp.Popen("rm {}/test".format(mountpoint), stdout=sp.PIPE, shell=True)
-            # DEBUG (stdout, stderr) = cleanup.communicate()
-            exit_code = cleanup.wait()
-            # DEBUG print(stderr, exit_code)
-            if Tfd == True and i < (len(value[index]) - 1) :
-                input("[Enter] when ready to continue: ")
-        except:
-            print("\n-> Something went wrong with the command!")
-            sp.Popen("rm fio-result.txt", shell=True, stdout=sp.PIPE)
-            return """
     items = range(len(value[index]))
     with ap.alive_bar(len(items), title="-> FIO Command", bar='classic2', spinner='classic', enrich_print=False) as bar:
         for item in items:
@@ -304,6 +319,34 @@ def fioBenchHandle(value, index):
                 return
     print()            
 
+
+def demo():
+    print("\n[Demo] Running 4k byte block size / 10MB file size FIO sequential read then write workload...\n")
+    run = sp.Popen("echo '' > 'fio-result-demo.txt'", shell=True, stdout=sp.PIPE)
+    run.wait()
+    commands = [
+        "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=10M --readwrite=read --ramp_time=4 | tee -a fio-result-demo.txt".format(mountpoint),
+        "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=4k --size=10M --readwrite=write --ramp_time=4 | tee -a fio-result-demo.txt".format(mountpoint)
+    ]
+    items = range(len(commands))
+    with ap.alive_bar(len(items), title="-> FIO Demo ", bar='classic2', spinner='classic') as bar:
+        for item in items:
+            try:
+                target=sp.Popen("echo '\n\n{0}{1}\n\n' | tee -a fio-result-demo.txt".format("Command: ", commands[item]), stdout=sp.PIPE, shell=True)
+                target.wait()
+                run = sp.Popen("{0}{1}".format(sshPass,commands[item]), shell=True, stdout=sp.PIPE)
+                run.wait()
+                cleanup = sp.Popen("rm {}/test".format(mountpoint), stdout=sp.PIPE, shell=True)
+                cleanup.wait()
+                bar()
+            except:
+                print("\n-> Something went wrong with the command!")
+                return
+    print("\n[Demo] Printing sample output collected result")
+    run = sp.Popen("cat fio-result-demo.txt", shell=True)
+    run.wait()
+    print()
+
 def mainMenu():
     print('''
     [\033[95mMenu\033[0m]
@@ -332,6 +375,7 @@ def fioMenu():
     4 = Set mode to failure during (Tfd) FIO commands mode
     5 = Run FIO benchmarking for mixed random r/w/rw
     6 = Run FIO benchmarking for sequential r/w/rw
+    D = Run FIO showcase demo
 
     S = Print this submenu
     E = Back to menu
@@ -339,4 +383,5 @@ def fioMenu():
     '''.format(Tnf, Tf, Tfd))
 
 if __name__ == "__main__":
+    #new()
     main()
