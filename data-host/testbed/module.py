@@ -1,3 +1,4 @@
+import math
 import subprocess as sp 
 import time
 import alive_progress as ap
@@ -124,10 +125,28 @@ def turnOnline():
     nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'echo online'"
     proc = sp.Popen("{0}{1}".format(sshPass, nodesOnline), stdout=sp.PIPE, shell=True)
     out = proc.communicate()
-    
     match = re.findall('\[FAILURE\]\W(node-\d\d|master-\d\d)', str(out))
     if len(match) != 0:
         ## list of strings
+        for i in range(len(match)):
+            var = re.match('master-(\d*)' , match[i])
+            if var != None:
+                #master = re.search('-(\d*)', var).group(1)
+                turnOn = match[i]
+                matchProj = "proj-man"
+            else:
+                node = int(re.search('-(\d*)' , match[i]).group(1))
+                if node % 2 == 0:
+                    node = math.floor(node / 2)
+                else:
+                    node = math.floor((node + 1) / 2)
+                
+                if node < 10:
+                    node = "0" + str(node)
+                turnOn = match[i]
+                matchProj = "proj-{}".format(node)
+            command = "pssh -i -H {1} -A -l vm1 -x \'-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no\' 'VBoxManage startvm {0} --type headless'".format(turnOn, matchProj)
+            run.wait()
         print(match)
         print(type(match))
     else:
