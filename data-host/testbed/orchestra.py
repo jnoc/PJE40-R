@@ -1,5 +1,6 @@
 ## This is to be run fron proj-data (the client and data collection machine)
 from asyncio import subprocess
+import json
 import subprocess as sp 
 from datetime import datetime
 import re
@@ -23,8 +24,9 @@ def export():
     Tnf = eval(config.get('default','tnf'))
     Tf = eval(config.get('default','tf'))
     
+    tnfTimeList = json.loads(config.get('default','tnfList'))
     modeType = [Tfd, Tnf, Tf]
-    array = [mountpoint, modeType]
+    array = [mountpoint, modeType,tnfTimeList]
 
     return array
 

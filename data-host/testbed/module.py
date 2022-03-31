@@ -14,7 +14,7 @@ webhook_url = "https://discord.com/api/webhooks/955584973103042600/bVoLZJewwADPV
 
 
 def module():
-    global mp, name, Tfd, Tnf, Tf, file, sshPass
+    global mp, name, Tfd, Tnf, Tf, file, sshPass, tnfTimeList
     print("Inside module")
 
     sshPass = "sshpass -f sshpass "
@@ -22,6 +22,7 @@ def module():
         
     mp = outputArray[0]
     modeType = outputArray[1]
+    tnfTimeList = outputArray[2]
     name = re.match('^\/.*\/(.*)$', mp).group(1)
     Tfd = modeType[0]
     Tnf = modeType[1]
@@ -100,17 +101,38 @@ def func(index, commands, mp, name):
     with ap.alive_bar(3, title="-> FIO {0} tests\t".format(commands[index][0]), bar='classic2', spinner='classic', enrich_print=False, elapsed=False) as tar:
         for j in range(3): # run each test 3 times
             if Tfd == True:
-                    specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd):"))
-                    command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
-                    sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
-                    print("-> Shutting off node(s)")
+                print("[Alert] turning off nodes Tnf / 4")
+                specTime = ((tnfTimeList[index] / 4) / 1000) # (avg Tnf / 4) / 1000 for seconds
+                print("{} <---- Tnf/4 time".format(specTime))
+                #specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd):"))
+                command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
+                sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
+                print("-> Shutting off node(s)")
             fioRun = sp.Popen("{0}".format(commands[index][1]), shell=True, stdout=sp.PIPE)
             fioRun.wait()
             fileCleanup = sp.Popen("rm {}/test".format(mp), stdout=sp.PIPE, shell=True)
             fileCleanup.wait()
             tar()
+            if Tfd == True:
+                print("[Alert] turning on offline nodes")
+                turnOnline()
+
             print("[Sleep][{}/3] 60s to allow cluster catchup...".format(j+1))
             time.sleep(60)
 
+def turnOnline():
+    nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'echo online'"
+    proc = sp.Popen("{0}{1}".format(sshPass, nodesOnline), stdout=sp.PIPE, shell=True)
+    out = proc.communicate()
+    
+    match = re.findall('\[FAILURE\]\W(node-\d\d|master-\d\d)', str(out))
+    if len(match) != 0:
+        ## list of strings
+        print(match)
+        print(type(match))
+    else:
+        print("-> {} host(s) are offline".format(len(match)))
+
 if __name__ == "__main__":
     module()
+
