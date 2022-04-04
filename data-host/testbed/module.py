@@ -15,6 +15,9 @@ webhook_url = "https://discord.com/api/webhooks/955584973103042600/bVoLZJewwADPV
 
 
 def module():
+
+    
+
     global mp, name, Tfd, Tnf, Tf, file, sshPass, tnfTimeList
     print("Inside module")
 
@@ -36,10 +39,28 @@ def module():
     else:
         file = "tf"
 
-
+    print("[Mode] {}".format(file))
     for i in range(12):
         try:
-            print("Mode == " + file)
+            run = sp.Popen("ls -la {}".format(mp), shell=True, stdout=sp.PIPE)
+            out = run.communicate()[0].decode("utf-8")
+            match = re.findall('error|Error', str(out))
+            # try catch errors 
+            if len(match) != 0:
+                #print(out)
+                out = "```" + out + "```"
+                out+= "\n`Mountpoint error, failed on iteration {} of module.py`".format(i+1)
+                return out
+            run = sp.Popen("df -h".format(mp), shell=True, stdout=sp.PIPE)
+            out = run.communicate()[0].decode("utf-8")
+            match = re.findall('{}'.format(mp), str(out))
+            if len(match) == 0:
+                #print(out)
+                out = "```" + out + "```"
+                out+= "\n`Cluster not mounted, failed on iteration {} of module.py`".format(i+1)
+                return out
+
+            #print("Mode == " + file)
             # random and sequential                                                                                                                 ### need to change back to 100M for LOW
             lowRR =  ["low-rand-read-{0}".format(file), "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=low-rand-read-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-{2}-test-low-rand-read-{1}.txt".format(mp, file, name)]
             lowRW = ["low-rand-write-{0}".format(file), "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=low-rand-write-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-{2}-test-low-rand-write-{1}.txt".format(mp, file, name)]
@@ -91,20 +112,20 @@ def func(index, commands, mp, name):
     mkfile.wait()
     if Tfd == True:
             print("-> Using shutoff-hosts.txt to turn off host(s) mid task.")
-            print("-> You will be prompted to carry on the program when FIO has finished exectuing and you manually bring the node(s) back online.")
+            print("-> Nodes will be shut off Tnf/4 time each run and brought back online automatically.")
     if Tf == True:
             print("-> Using shutoff-hosts.txt to turn off host(s) for FIO commands")
             command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
             sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
             print("-> Shutting off node(s)")
-            print("[Sleep] 60s to allow cluster catchup...")
+            print("[Sleep][---] 60s to allow cluster catchup...")
             time.sleep(60)
     with ap.alive_bar(3, title="-> FIO {0} tests\t".format(commands[index][0]), bar='classic2', spinner='classic', enrich_print=False, elapsed=False) as tar:
         for j in range(3): # run each test 3 times
             if Tfd == True:
-                print("[Alert] turning off nodes Tnf / 4")
+                #print("[Alert] turning off nodes Tnf / 4")
                 specTime = ((tnfTimeList[index] / 4) / 1000) # (avg Tnf / 4) / 1000 for seconds
-                print("{} <---- Tnf/4 time".format(specTime))
+                #print("{} <---- Tnf/4 time".format(specTime))
                 #specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd):"))
                 command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
                 sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
@@ -115,18 +136,26 @@ def func(index, commands, mp, name):
             fileCleanup.wait()
             tar()
             if Tfd == True:
-                print("[Alert] turning on offline nodes")
+                print("[Alert] FIO iteration done, turning on offline nodes")
                 turnOnline()
 
             print("[Sleep][{}/3] 60s to allow cluster catchup...".format(j+1))
             time.sleep(60)
 
 def turnOnline():
+    count = 0
     nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'echo online'"
     proc = sp.Popen("{0}{1}".format(sshPass, nodesOnline), stdout=sp.PIPE, shell=True)
     out = proc.communicate()
     match = re.findall('\[FAILURE\]\W(node-\d\d|master-\d\d)', str(out))
     if len(match) != 0:
+        ## catch any nodes that do not turn on... exit module.py if fails
+        if count != 0:
+            print("[Alert] Some nodes didn't turn back on retrying")
+        if count > 2:
+            print("[Alert] Some nodes will not restart, further investigation needed...")
+            print("-> {} are offline".format(match))
+            exit()
         ## list of strings
         for i in range(len(match)):
             var = re.match('master-(\d*)' , match[i])
@@ -145,12 +174,17 @@ def turnOnline():
                     node = "0" + str(node)
                 turnOn = match[i]
                 matchProj = "proj-{}".format(node)
-            command = "pssh -i -H {1} -A -l vm1 -x \'-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no\' 'VBoxManage startvm {0} --type headless'".format(turnOn, matchProj)
+            command = "pssh -i -H {1} -A -l vm1 -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'VBoxManage startvm {0} --type headless'".format(turnOn, matchProj)
+            #print("turning on {0} hosted on {1}".format(turnOn, matchProj))
             run.wait()
-        print(match)
-        print(type(match))
+        #print("[Alert] turned on {} hosts".format(len(match)))
+        count+= 1
+        print("[Sleep][---] 120s to allow cluster catchup...")
+        time.sleep(120)
+        turnOnline()
     else:
-        print("-> {} host(s) are offline".format(len(match)))
+        print("-> Hosts are back online...")
+
 
 if __name__ == "__main__":
     module()

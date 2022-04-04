@@ -377,6 +377,7 @@ def fioMenu():
     4 = Set mode to failure during (Tfd) FIO commands mode
     5 = Run FIO benchmarking for mixed random r/w/rw
     6 = Run FIO benchmarking for sequential r/w/rw
+    7 = Run FIO commands automatically
     D = Run FIO showcase demo
 
     S = Print this submenu
