@@ -18,10 +18,11 @@ def module():
 
     num_lines = sum(1 for line in open('shutoff-hosts.txt'))
 
-    global mp, name, Tfd, Tnf, Tf, file, sshPass, tnfTimeList, caughtErrors
+    global mp, name, Tfd, Tnf, Tf, file, sshPass, sshPassW, tnfTimeList, caughtErrors
     print("Inside module")
 
     sshPass = "sshpass -f sshpass "
+    sshPassW = "sshpass -f sshpass-workstations "
     outputArray = export()
     caughtErrors = []    
     mp = outputArray[0]
@@ -36,6 +37,7 @@ def module():
         file = "tfd"
     elif Tnf == True:
         file = "tnf"
+        num_lines = 0
     else:
         file = "tf"
 
@@ -141,7 +143,7 @@ def func(index, commands, mp, name):
             if len(match) != 0:
                 cE = "Iter:{0},Run:{1}".format(commands[index][0],j+1)
                 caughtErrors.append(cE)
-                mkfile = sp.Popen("echo '{0}, Error: {1}' | tee -a fio-errors.txt".format(cE, match), shell=True, stdout=sp.PIPE)
+                mkfile = sp.Popen("echo '{0}, Error: {1}' | tee -a fio-errors.txt".format(cE, str(out)), shell=True, stdout=sp.PIPE)
                 mkfile.wait()
             fioRun.wait()
             fileCleanup = sp.Popen("rm {}/test".format(mp), stdout=sp.PIPE, shell=True)
@@ -190,6 +192,7 @@ def turnOnline():
                 matchProj = "proj-{}".format(node)
             command = "pssh -i -H {1} -A -l vm1 -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'VBoxManage startvm {0} --type headless'".format(turnOn, matchProj)
             #print("turning on {0} hosted on {1}".format(turnOn, matchProj))
+            run = sp.Popen("{0}{1}".format(sshPassW, command), shell=True, stdout=sp.PIPE)
             run.wait()
         #print("[Alert] turned on {} hosts".format(len(match)))
         count+= 1

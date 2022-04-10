@@ -149,7 +149,7 @@ def fioScreen():
     Tfd = eval(config.get('default','tfd'))
     Tnf = eval(config.get('default','tnf'))
     Tf = eval(config.get('default','tf'))
-    set = ["1", "2", "3", "4", "5", "6", "7", "E", "e", "D", "d", "Q", "q", "S", "s"]
+    set = ["1", "2", "3", "4", "5", "6", "7", "8", "E", "e", "D", "d", "Q", "q", "S", "s"]
     fioMenu()
     while True:
         try:
@@ -167,6 +167,9 @@ def fioScreen():
                 elif option == "7":
                     #new()
                     run = sp.Popen(["python3", "module.py"])
+                    run.wait()
+                elif option == "8":
+                    run = sp.Popen(["python3", "test-stress.py"])
                     run.wait()
                 else:
                     fioHandle(option)
@@ -371,13 +374,14 @@ def fioMenu():
 
     [\033[95mFIO Submenu\033[0m]
 
-    1 = Run FIO commands for mixed random r/w/rw
-    2 = Run FIO commands for sequential r/w/rw
+    1 = Run Test FIO commands for mixed random r/w/rw
+    2 = Run Test FIO commands for sequential r/w/rw
     3 = Set mode to Tnf or Tf during FIO commands
     4 = Set mode to failure during (Tfd) FIO commands mode
     5 = Run FIO benchmarking for mixed random r/w/rw
     6 = Run FIO benchmarking for sequential r/w/rw
-    7 = Run FIO commands automatically
+    7 = Run FIO workload commands automatically
+    8 = Run Stress-ng CPU loads
     D = Run FIO showcase demo
 
     S = Print this submenu
