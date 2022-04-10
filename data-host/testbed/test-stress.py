@@ -15,8 +15,10 @@ config.read('config.ini')
 loadLevel = config.get('default','loadLevel')
 loadTime = config.get('default','loadTime')
 processors = config.get('default','stressCores')
+
+print("\n[\033[93m!\033[0m] Load amount: \033[91m{0}%\033[0m, Load time: \033[91m{1}\033[0m, Core amount: \033[91m{2}\033[0m".format(loadLevel, loadTime, processors))
+print("-> (Load time will need to be set longer than the FIO testing time)")
 server = input(str("\n[Enter] the server you want to target: "))
-print("[Alert] Load level set at {0}%, Load time set at {1} \n-> (this should be the total taken time from the tnf test)".format(loadLevel, loadTime))
 
 def main():
     print("[Alert] Running stress-ng")
