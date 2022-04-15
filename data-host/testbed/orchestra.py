@@ -1,5 +1,3 @@
-## This is to be run fron proj-data (the client and data collection machine)
-from asyncio import subprocess
 import json
 import subprocess as sp 
 from datetime import datetime
@@ -10,36 +8,30 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-
 mountpoint = config.get('default','mountpoint')
-
 print("[\033[93mAlert\033[0m] Make sure config.ini is up to-date!")
-#mountpoint = str(input("[Enter] DFS mountpoint: "))
-pointer = mountpoint
 
 def export():    
-    
+    # this is used to export to the module.py function
+    # any changes made during the use of orchestra gets sent over to module
     mountpoint = config.get('default','mountpoint')
     Tfd = eval(config.get('default','tfd'))
     Tnf = eval(config.get('default','tnf'))
     Tf = eval(config.get('default','tf'))
-    
     tnfTimeList = json.loads(config.get('default','tnfList'))
     modeType = [Tfd, Tnf, Tf]
     array = [mountpoint, modeType,tnfTimeList]
-
     return array
 
-# commands
+# linux base commands
 sshPass = "sshpass -f sshpass "
-
 shutOffNodes = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep 1; init 0'"
 telegrafStart = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'systemctl start telegraf; sleep 1; systemctl status telegraf | grep Active'"
 telegrafStop = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'systemctl stop telegraf; sleep 1; systemctl status telegraf | grep Active'"
 nodesOnline = "pssh -i -h all-nodes.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'echo online'"
 pingHosts = "nmap -sn -iL all-nodes.txt"
 
-# fio commands                                                                                              change XXM
+# fio commands                                                                                              
 # random r/w/rw
 fioSetTestRRead = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randread --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 fioSetTestRWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=randwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
@@ -50,17 +42,17 @@ fioSetTestWrite = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTes
 fioSetTestRW = "fio --randrepeat=1 --ioengine=libaio --direct=1 --name=setTest-{0} --filename={0}/test --bs=128k --size=100M --readwrite=readwrite --ramp_time=4 | tee -a fio-result.txt".format(mountpoint)
 
 # fio benchmark
-# random r/w/rw                                                  change XXM
-fioBenchRRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randread".format(mountpoint) # --output directory
-fioBenchRWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randwrite".format(mountpoint) # --output directory
-fioBenchRRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randrw --rwmixread 50".format(mountpoint) # --output directory
+# random r/w/rw                                                  
+fioBenchRRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randread".format(mountpoint) 
+fioBenchRWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randwrite".format(mountpoint) 
+fioBenchRRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode randrw --rwmixread 50".format(mountpoint) 
 
 # sequential r/w/rw
-fioBenchRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode read".format(mountpoint) # --output directory
-fioBenchWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode write".format(mountpoint) # --output directory
-fioBenchRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode readwrite --rwmixread 50".format(mountpoint) # --output directory
+fioBenchRead = "bench-fio --target {0} --type directory -b 4k --size 50M --mode read".format(mountpoint) 
+fioBenchWrite = "bench-fio --target {0} --type directory -b 4k --size 50M --mode write".format(mountpoint) 
+fioBenchRW = "bench-fio --target {0} --type directory -b 4k --size 50M --mode readwrite --rwmixread 50".format(mountpoint)
 
-# keep track
+# command arrays to iterate
 commands = [shutOffNodes, telegrafStart, telegrafStop, nodesOnline, nodesOnline, pingHosts]
 fioSetRandCommands = [fioSetTestRRead, fioSetTestRWrite, fioSetTestRRW]
 fioSetSeqCommands = [fioSetTestRead, fioSetTestWrite, fioSetTestRW]
@@ -73,7 +65,7 @@ fioAllBenchCommands = [fioBenchRandCommands, fioBenchSeqCommands]
 
 # main program start
 def main():
-    set = ["1", "2", "3", "4", "5", "6", "7", "Q", "q", "S", "s"]
+    set = ["1", "2", "3", "4", "5", "6", "7", "8", "Q", "q", "S", "s"]
     print("\n[\033[93m!\033[0m] Files in use: shutoff-hosts.txt, all-nodes.txt")
     print("[\033[93m!\033[0m] Mountpoint set to: \033[91m{}\033[0m".format(mountpoint))
     mainMenu()
@@ -86,7 +78,11 @@ def main():
                     exit()
                 elif option == "S" or option == "s":
                     mainMenu()
+                # launching into online check module
                 elif option == "7":
+                    run = sp.Popen(["python3", "test-online.py"])
+                    run.wait()
+                elif option == "8":
                     fioScreen()
                 else:
                     menuHandle(option)
@@ -96,10 +92,11 @@ def main():
             print("-> Invalid input please retry")
             print(e)
 
+# handles the option from the main menu, value has been checked before being passed to this function
+# each option has a statement that handles the output of the proc run command
 def menuHandle(option):
     proc = sp.Popen("{0}{1}".format(sshPass, commands[(int(option) - 1)]), stdout=sp.PIPE, shell=True)
     out = proc.communicate()
-    #print(out)
     if option == "1":
         num_lines = sum(1 for _ in open('shutoff-hosts.txt'))
         match = len(re.findall('closed by remote host', str(out)))
@@ -143,9 +140,10 @@ def menuHandle(option):
         print("Error")
         exit()
 
-
+# moving from the main menu to the fio submenu
 def fioScreen():
     global Tfd, Tnf, Tf
+    # getting most up to date values in the config
     Tfd = eval(config.get('default','tfd'))
     Tnf = eval(config.get('default','tnf'))
     Tf = eval(config.get('default','tf'))
@@ -164,10 +162,11 @@ def fioScreen():
                     fioMenu()
                 elif option == "D" or option == "d":
                     demo()
+                # launching into automated FIO module
                 elif option == "7":
-                    #new()
                     run = sp.Popen(["python3", "module.py"])
                     run.wait()
+                # launching into CPU stress module
                 elif option == "8":
                     run = sp.Popen(["python3", "test-stress.py"])
                     run.wait()
@@ -177,25 +176,27 @@ def fioScreen():
                 print("-> Invalid input please retry")
         except ValueError as e:
             print("-> Invalid input please retry")
-            #print(e)
 
+# handles the selected option and to where the value goes
 def fioHandle(option):
     global Tnf, Tfd, Tf
-    ## Set FIO Random r/w/rw commands
+    # Set FIO Random r/w/rw commands
     if option == "1":
         fioSetCommandsHandle(fioAllSetCommands, 0)
-    ## Set FIO r/w/rw commands
+    # Set FIO r/w/rw commands
     elif option == "2":
         fioSetCommandsHandle(fioAllSetCommands, 1)
     elif option == "3":
         if Tnf == True:
+            # makes sure Tf and Tnf are both not == true
             Tnf = config.set('default','tnf', "False")
-            Tf = config.set('default','tf', "True") # makes sure Tf and Tnf are both not == true
+            Tf = config.set('default','tf', "True")
             Tfd = config.set('default','tfd', "False")
             with open('config.ini', 'w') as configfile:
                 config.write(configfile)
             print("-> Failure execution (Tf) set")
         else:
+            # flip back to the orginal value
             Tnf = config.set('default','tnf', "True")
             Tf = config.set('default','tf', "False")
             Tfd = config.set('default','tfd', "False")
@@ -208,19 +209,22 @@ def fioHandle(option):
         print("-> Tnf: {0}, Tf: {1}, Tfd: {2}".format(Tnf, Tf, Tfd))
     elif option == "4":
         if Tfd == False:
+            # makes sure Tf and Tnf are both not == false
             Tfd = config.set('default','tfd', "True")
-            Tnf = config.set('default','tnf', "False") # makes sure Tf and Tnf are both not == false
+            Tnf = config.set('default','tnf', "False") 
             Tf = config.set('default','tf', "False")
             with open('config.ini', 'w') as configfile:
                 config.write(configfile)
             print("-> Failure during (Tfd) set")
         else:
+            # flip back to the orginal value
             Tfd = config.set('default','tfd', "False")
             Tnf = config.set('default','tnf', "True")
             Tf = config.set('default','tf', "False")
             with open('config.ini', 'w') as configfile:
                 config.write(configfile)
             print("-> Failure during (Tfd) disabled")
+        # update config.ini
         Tfd = eval(config.get('default','tfd'))
         Tnf = eval(config.get('default','tnf'))
         Tf = eval(config.get('default','tf'))
@@ -235,14 +239,13 @@ def fioHandle(option):
         print("Error")
         exit()
 
-
-
-
+# runs the set fio group of commands (random or sequential)
 def fioSetCommandsHandle(value, index):
     # gets file 
     var = ["rand", "seq"]
     now = datetime.now()
     name = re.match('^\/.*\/(.*)$', mountpoint).group(1)
+    # making the file for the output of the FIO command to be pushed into
     if Tfd == True:
         file = "fio-result-{0}-{1}-{2}-{3}.txt".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index], "tfd", name)
     elif Tnf == True:
@@ -252,6 +255,7 @@ def fioSetCommandsHandle(value, index):
     # makes file for results to tee into (built into the set command)
     sp.Popen("touch fio-result.txt", shell=True)
     sp.Popen("echo '{}' | tee -a fio-result.txt".format(file), stdout=sp.PIPE, shell=True)
+    # test dependent variables (this is he manual side of the program)
     if Tfd == True:
             print("-> Using shutoff-hosts.txt to turn off host(s) mid task.")
             print("-> You will be prompted to carry on the program when FIO has finished exectuing and you manually bring the node(s) back online.")
@@ -261,6 +265,7 @@ def fioSetCommandsHandle(value, index):
             sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
             print("-> Shutting off node(s)")
     items = range(len(value[index]))
+    # alive progress bar for visual progress for user
     with ap.alive_bar(len(items), title="-> FIO Command", bar='classic2', spinner='classic', enrich_print=False) as bar:
         for item in items:
             try:
@@ -268,23 +273,20 @@ def fioSetCommandsHandle(value, index):
                     specTime = str(input("\n[Enter] the time until until node(s) shutoff (Tfd): "))
                     command = "pssh -i -h shutoff-hosts.txt -A -l root -x '-tt -q -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no' 'hostname; sleep {}; init 0'".format(specTime)
                     sp.Popen("{0}{1}".format(sshPass,command), shell=True, stdout=sp.PIPE)
-                    #start = time.process_time()
                     print("-> Shutting off node(s)")
-                #end = time.process_time()
                 target=sp.Popen("echo '\n\n{0}{1}\n\n' | tee -a fio-result.txt".format("Command: ",value[index][item]), stdout=sp.PIPE, shell=True)
                 # run set FIO command (iterate through set commands list)
                 main = sp.Popen(value[index][item], stdout=sp.PIPE, shell=True)
-                # DEBUG (stdout, stderr) = main.communicate()
+                # DEBUG # (stdout, stderr) = main.communicate()
                 exit_code = main.wait()
-                #print(end - start)
-                # DEBUG print(stderr, exit_code)
+                # DEBUG # print(stderr, exit_code)
                 # format results to be readable
                 # cleans up the file created from FIO
                 cleanup = sp.Popen("rm {}/test".format(mountpoint), stdout=sp.PIPE, shell=True)
-                # DEBUG (stdout, stderr) = cleanup.communicate()
+                # DEBUG #(stdout, stderr) = cleanup.communicate()
                 exit_code = cleanup.wait()
-                # DEBUG print(stderr, exit_code)
-                if Tfd == True and item < (len(value[index]) - 1) :
+                # DEBUG # print(stderr, exit_code)
+                if Tfd == True and item < (len(value[index]) - 1):
                     input("[Enter] when ready to continue: ")
                 bar()
             except:
@@ -295,23 +297,18 @@ def fioSetCommandsHandle(value, index):
     sp.Popen("mv fio-result.txt {}".format(file), shell=True)
     print("-> Results saved to {}".format(file))    
 
+# runs the fio bench commands
 def fioBenchHandle(value, index):
+    # iteration of fio bench types and test type for file generation with timestamp
     var = [["randread", "randwrite","randrw"],["seqread","seqwrite","seqrw"]]
     var2 = ["rand", "seq"]
     now = datetime.now()
     name = re.match('^\/.*\/(.*)$', mountpoint).group(1)
-    """ for i in range(len(value[index])):
-        try:
-            print("-> Starting FIO task {}".format(i + 1))
-            path = "./fio-bench-{0}/{1}-{2}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var[index][i], name)
-            sp.Popen("{0}{1}{2}{3}".format(value[index][i], " --output ", path, " --dry-run"), shell=True, stdout=sp.PIPE)
-        except:
-            print("\n-> Something went wrong with the command!")
-            return """
     items = range(len(value[index]))
     with ap.alive_bar(len(items), title="-> FIO Benchmarking ", bar='classic2', spinner='classic') as bar:
         for item in items:
             try:
+                # building output path for fio bench command
                 path = "./fio-bench-{0}-{1}-{2}/{3}".format(now.strftime("%d-%m-%Y--%H-%M-%S"), var2[index], name, var[index][item])
                 bench = sp.Popen("{0}{1}{2}".format(value[index][item], " --output ", path), shell=True, stdout=sp.PIPE)
                 bench.wait()
@@ -324,7 +321,7 @@ def fioBenchHandle(value, index):
                 return
     print()            
 
-
+# set up for the demo showcase
 def demo():
     print("\n[Demo] Running 4k byte block size / 10MB file size FIO sequential read then write workload...\n")
     run = sp.Popen("echo '' > 'fio-result-demo.txt'", shell=True, stdout=sp.PIPE)
@@ -352,6 +349,7 @@ def demo():
     run.wait()
     print()
 
+# menus
 def mainMenu():
     print('''
     [\033[95mMenu\033[0m]
@@ -362,7 +360,8 @@ def mainMenu():
     4 = Check the amount of nodes online across the cluster
     5 = Check the amount of nodes offline across the cluster
     6 = Measure average latency of client to cluster
-    7 = FIO command submenu
+    7 = Start offline nodes (all-nodes.txt is used here)
+    8 = FIO command submenu
 
     S = Print this menu
     Q = Exit program
@@ -390,5 +389,4 @@ def fioMenu():
     '''.format(Tnf, Tf, Tfd))
 
 if __name__ == "__main__":
-    #new()
     main()
