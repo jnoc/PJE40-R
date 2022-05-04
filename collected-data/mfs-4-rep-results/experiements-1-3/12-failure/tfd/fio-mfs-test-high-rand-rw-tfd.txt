@@ -1,0 +1,145 @@
+Started: 12-04-2022--11-27-50
+
+high-rand-rw-/mnt/mfs: (g=0): rw=randrw, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+high-rand-rw-/mnt/mfs: Laying out IO file (1 file / 10MiB)
+fio: pid=32690, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=32692, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=32694, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32696, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=32691, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32688, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32695, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32687, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32693, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=32689, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err= 6 (file:io_u.c:1846, func=io_u error, error=No such device or address): pid=32692: Tue Apr 12 11:44:26 2022
+  write: IOPS=0, BW=636B/s (636B/s)(256KiB/411894msec); 0 zone resets
+    slat (usec): min=1016, max=290382k, avg=145191377.81, stdev=205330177.43
+    clat (nsec): min=3422, max=3422, avg=3422.00, stdev= 0.00
+     lat (nsec): min=1022.2k, max=1022.2k, avg=1022198.00, stdev= 0.00
+    clat percentiles (nsec):
+     |  1.00th=[ 3408],  5.00th=[ 3408], 10.00th=[ 3408], 20.00th=[ 3408],
+     | 30.00th=[ 3408], 40.00th=[ 3408], 50.00th=[ 3408], 60.00th=[ 3408],
+     | 70.00th=[ 3408], 80.00th=[ 3408], 90.00th=[ 3408], 95.00th=[ 3408],
+     | 99.00th=[ 3408], 99.50th=[ 3408], 99.90th=[ 3408], 99.95th=[ 3408],
+     | 99.99th=[ 3408]
+   bw (  KiB/s): min=  512, max=  512, per=100.00%, avg=512.00, stdev= 0.00, samples=1
+   iops        : min=    4, max=    4, avg= 4.00, stdev= 0.00, samples=1
+  lat (usec)   : 4=50.00%
+  cpu          : usr=0.00%, sys=0.00%, ctx=7, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=25.0%, 4=75.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=1,1,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err= 6 (file:io_u.c:1846, func=io_u error, error=No such device or address): pid=32696: Tue Apr 12 11:44:26 2022
+  write: IOPS=0, BW=186B/s (186B/s)(128KiB/701923msec); 0 zone resets
+    slat (nsec): min=290317M, max=290317M, avg=290317048299.00, stdev= 0.00
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=2, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=1,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=560B/s (560B/s), 186B/s-636B/s (186B/s-636B/s), io=384KiB (393kB), run=411894-701923msec
+high-rand-rw-/mnt/mfs: (g=0): rw=randrw, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+high-rand-rw-/mnt/mfs: Laying out IO file (1 file / 10MiB)
+fio: pid=7333, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=7326, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=7332, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7324, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7329, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7327, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7325, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7331, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7330, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=7328, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err= 6 (file:io_u.c:1846, func=io_u error, error=No such device or address): pid=7326: Tue Apr 12 11:59:54 2022
+  write: IOPS=0, BW=318B/s (318B/s)(128KiB/411890msec); 0 zone resets
+    slat (nsec): min=290307M, max=290307M, avg=290307202634.00, stdev= 0.00
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=2, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=1,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=318B/s (318B/s), 318B/s-318B/s (318B/s-318B/s), io=128KiB (131kB), run=411890-411890msec
+high-rand-rw-/mnt/mfs: (g=0): rw=randrw, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+high-rand-rw-/mnt/mfs: Laying out IO file (1 file / 10MiB)
+fio: pid=12968, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=12960, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=12969, err=6/file:io_u.c:1846, func=io_u error, error=No such device or address
+fio: pid=12962, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12963, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12967, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12961, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12966, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12965, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+fio: pid=12964, err=28/file:io_u.c:1846, func=io_u error, error=No space left on device
+
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err=28 (file:io_u.c:1846, func=io_u error, error=No space left on device): pid=12964: Tue Apr 12 12:15:11 2022
+  write: IOPS=0, BW=318B/s (318B/s)(128KiB/411895msec); 0 zone resets
+    slat (msec): min=290392, max=411894, avg=351143.33, stdev=85914.52
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=3, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,1,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err=28 (file:io_u.c:1846, func=io_u error, error=No space left on device): pid=12965: Tue Apr 12 12:15:11 2022
+  write: IOPS=0, BW=318B/s (318B/s)(128KiB/411895msec); 0 zone resets
+    slat (msec): min=290399, max=411894, avg=351146.82, stdev=85909.76
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=4, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,1,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err=28 (file:io_u.c:1846, func=io_u error, error=No space left on device): pid=12966: Tue Apr 12 12:15:11 2022
+  write: IOPS=0, BW=318B/s (318B/s)(128KiB/411896msec); 0 zone resets
+    slat (msec): min=290435, max=411894, avg=351165.06, stdev=85884.96
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=4, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,1,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-rw-/mnt/mfs: (groupid=0, jobs=1): err= 6 (file:io_u.c:1846, func=io_u error, error=No such device or address): pid=12969: Tue Apr 12 12:15:11 2022
+  write: IOPS=0, BW=318B/s (318B/s)(128KiB/411892msec); 0 zone resets
+    slat (nsec): min=290365M, max=290365M, avg=290364528013.00, stdev= 0.00
+   bw (  KiB/s): min=  256, max=  256, per=100.00%, avg=256.00, stdev= 0.00, samples=1
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=1
+  cpu          : usr=0.00%, sys=0.00%, ctx=1, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=33.3%, 4=66.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=1,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=1272B/s (1272B/s), 318B/s-318B/s (318B/s-318B/s), io=512KiB (524kB), run=411892-411896msec

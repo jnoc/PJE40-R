@@ -1,0 +1,656 @@
+Started: 15-04-2022--21-29-00
+
+high-rand-write-/mnt/gfs: (g=0): rw=randwrite, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+fio: pid=31335, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31330, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31331, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31333, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31337, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31329, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31334, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31332, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31328, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31336, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31328: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=259KiB/s (265kB/s)(1792KiB/6923msec); 0 zone resets
+    slat (usec): min=46, max=436, avg=82.56, stdev=102.82
+    clat (msec): min=310, max=660, avg=468.41, stdev=106.03
+     lat (msec): min=310, max=660, avg=468.47, stdev=106.02
+    clat percentiles (msec):
+     |  1.00th=[  309],  5.00th=[  309], 10.00th=[  313], 20.00th=[  397],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  451],
+     | 70.00th=[  464], 80.00th=[  584], 90.00th=[  634], 95.00th=[  659],
+     | 99.00th=[  659], 99.50th=[  659], 99.90th=[  659], 99.95th=[  659],
+     | 99.99th=[  659]
+   bw (  KiB/s): min=  256, max=  512, per=11.91%, avg=302.55, stdev=103.56, samples=11
+   iops        : min=    2, max=    4, avg= 2.36, stdev= 0.81, samples=11
+  lat (msec)   : 500=66.67%, 750=26.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=31, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31329: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=275KiB/s (281kB/s)(1792KiB/6519msec); 0 zone resets
+    slat (usec): min=43, max=525, avg=84.06, stdev=122.40
+    clat (msec): min=155, max=663, avg=444.26, stdev=123.87
+     lat (msec): min=155, max=663, avg=444.35, stdev=123.92
+    clat percentiles (msec):
+     |  1.00th=[  157],  5.00th=[  157], 10.00th=[  334], 20.00th=[  393],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  447], 60.00th=[  451],
+     | 70.00th=[  456], 80.00th=[  558], 90.00th=[  625], 95.00th=[  667],
+     | 99.00th=[  667], 99.50th=[  667], 99.90th=[  667], 99.95th=[  667],
+     | 99.99th=[  667]
+   bw (  KiB/s): min=  256, max=  512, per=11.75%, avg=298.67, stdev=99.65, samples=12
+   iops        : min=    2, max=    4, avg= 2.33, stdev= 0.78, samples=12
+  lat (msec)   : 250=6.67%, 500=66.67%, 750=20.00%
+  cpu          : usr=0.02%, sys=0.00%, ctx=31, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31330: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=249KiB/s (255kB/s)(1664KiB/6694msec); 0 zone resets
+    slat (nsec): min=44769, max=58527, avg=49512.57, stdev=3484.52
+    clat (msec): min=137, max=1139, avg=491.98, stdev=230.37
+     lat (msec): min=137, max=1140, avg=492.03, stdev=230.36
+    clat percentiles (msec):
+     |  1.00th=[  138],  5.00th=[  138], 10.00th=[  347], 20.00th=[  405],
+     | 30.00th=[  443], 40.00th=[  447], 50.00th=[  451], 60.00th=[  456],
+     | 70.00th=[  468], 80.00th=[  493], 90.00th=[  718], 95.00th=[ 1133],
+     | 99.00th=[ 1133], 99.50th=[ 1133], 99.90th=[ 1133], 99.95th=[ 1133],
+     | 99.99th=[ 1133]
+   bw (  KiB/s): min=  256, max=  512, per=11.91%, avg=302.55, stdev=103.56, samples=11
+   iops        : min=    2, max=    4, avg= 2.36, stdev= 0.81, samples=11
+  lat (msec)   : 250=7.14%, 500=71.43%, 750=7.14%, 2000=7.14%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31331: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=277KiB/s (284kB/s)(1792KiB/6472msec); 0 zone resets
+    slat (usec): min=41, max=581, avg=85.30, stdev=137.28
+    clat (msec): min=126, max=655, avg=443.26, stdev=131.27
+     lat (msec): min=127, max=655, avg=443.35, stdev=131.33
+    clat percentiles (msec):
+     |  1.00th=[  128],  5.00th=[  128], 10.00th=[  334], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  592], 90.00th=[  634], 95.00th=[  659],
+     | 99.00th=[  659], 99.50th=[  659], 99.90th=[  659], 99.95th=[  659],
+     | 99.99th=[  659]
+   bw (  KiB/s): min=  256, max=  512, per=11.91%, avg=302.55, stdev=103.56, samples=11
+   iops        : min=    2, max=    4, avg= 2.36, stdev= 0.81, samples=11
+  lat (msec)   : 250=6.67%, 500=66.67%, 750=20.00%
+  cpu          : usr=0.00%, sys=0.00%, ctx=30, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31332: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=254KiB/s (260kB/s)(1664KiB/6556msec); 0 zone resets
+    slat (usec): min=43, max=126, avg=54.07, stdev=21.17
+    clat (msec): min=341, max=679, avg=480.00, stdev=101.70
+     lat (msec): min=341, max=679, avg=480.06, stdev=101.71
+    clat percentiles (msec):
+     |  1.00th=[  342],  5.00th=[  342], 10.00th=[  401], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  447], 50.00th=[  447], 60.00th=[  456],
+     | 70.00th=[  535], 80.00th=[  609], 90.00th=[  625], 95.00th=[  676],
+     | 99.00th=[  676], 99.50th=[  676], 99.90th=[  676], 99.95th=[  676],
+     | 99.99th=[  676]
+   bw (  KiB/s): min=  256, max=  512, per=11.91%, avg=302.55, stdev=103.56, samples=11
+   iops        : min=    2, max=    4, avg= 2.36, stdev= 0.81, samples=11
+  lat (msec)   : 500=64.29%, 750=28.57%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31333: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=281KiB/s (288kB/s)(1920KiB/6829msec); 0 zone resets
+    slat (usec): min=42, max=478, avg=75.89, stdev=107.37
+    clat (msec): min=169, max=624, avg=435.38, stdev=96.72
+     lat (msec): min=169, max=624, avg=435.46, stdev=96.78
+    clat percentiles (msec):
+     |  1.00th=[  169],  5.00th=[  169], 10.00th=[  334], 20.00th=[  401],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  460], 90.00th=[  518], 95.00th=[  625],
+     | 99.00th=[  625], 99.50th=[  625], 99.90th=[  625], 99.95th=[  625],
+     | 99.99th=[  625]
+   bw (  KiB/s): min=  256, max=  512, per=11.75%, avg=298.67, stdev=99.65, samples=12
+   iops        : min=    2, max=    4, avg= 2.33, stdev= 0.78, samples=12
+  lat (msec)   : 250=6.25%, 500=75.00%, 750=12.50%
+  cpu          : usr=0.01%, sys=0.00%, ctx=33, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31334: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=239KiB/s (245kB/s)(1664KiB/6966msec); 0 zone resets
+    slat (usec): min=45, max=178, avg=58.23, stdev=34.58
+    clat (msec): min=254, max=863, avg=512.72, stdev=184.25
+     lat (msec): min=254, max=863, avg=512.78, stdev=184.26
+    clat percentiles (msec):
+     |  1.00th=[  255],  5.00th=[  255], 10.00th=[  313], 20.00th=[  393],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  659], 80.00th=[  693], 90.00th=[  802], 95.00th=[  860],
+     | 99.00th=[  860], 99.50th=[  860], 99.90th=[  860], 99.95th=[  860],
+     | 99.99th=[  860]
+   bw (  KiB/s): min=  256, max=  512, per=12.11%, avg=307.20, stdev=107.94, samples=10
+   iops        : min=    2, max=    4, avg= 2.40, stdev= 0.84, samples=10
+  lat (msec)   : 500=64.29%, 750=14.29%, 1000=14.29%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31335: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=245KiB/s (251kB/s)(1664KiB/6781msec); 0 zone resets
+    slat (usec): min=45, max=297, avg=66.06, stdev=66.65
+    clat (msec): min=277, max=917, avg=494.08, stdev=154.95
+     lat (msec): min=277, max=917, avg=494.13, stdev=154.95
+    clat percentiles (msec):
+     |  1.00th=[  279],  5.00th=[  279], 10.00th=[  409], 20.00th=[  439],
+     | 30.00th=[  439], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  460], 80.00th=[  625], 90.00th=[  625], 95.00th=[  919],
+     | 99.00th=[  919], 99.50th=[  919], 99.90th=[  919], 99.95th=[  919],
+     | 99.99th=[  919]
+   bw (  KiB/s): min=  256, max=  512, per=10.92%, avg=277.33, stdev=73.90, samples=12
+   iops        : min=    2, max=    4, avg= 2.17, stdev= 0.58, samples=12
+  lat (msec)   : 500=71.43%, 750=14.29%, 1000=7.14%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31336: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=266KiB/s (272kB/s)(1792KiB/6745msec); 0 zone resets
+    slat (nsec): min=43721, max=71937, avg=50653.73, stdev=8151.55
+    clat (msec): min=114, max=817, avg=463.82, stdev=172.81
+     lat (msec): min=114, max=817, avg=463.87, stdev=172.81
+    clat percentiles (msec):
+     |  1.00th=[  115],  5.00th=[  115], 10.00th=[  222], 20.00th=[  447],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  625], 90.00th=[  693], 95.00th=[  818],
+     | 99.00th=[  818], 99.50th=[  818], 99.90th=[  818], 99.95th=[  818],
+     | 99.99th=[  818]
+   bw (  KiB/s): min=  256, max=  512, per=10.84%, avg=275.69, stdev=71.00, samples=13
+   iops        : min=    2, max=    4, avg= 2.15, stdev= 0.55, samples=13
+  lat (msec)   : 250=13.33%, 500=60.00%, 750=13.33%, 1000=6.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=30, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31337: Fri Apr 15 21:29:11 2022
+  write: IOPS=2, BW=279KiB/s (286kB/s)(1920KiB/6875msec); 0 zone resets
+    slat (nsec): min=41136, max=50286, avg=47566.38, stdev=2678.69
+    clat (msec): min=94, max=728, avg=440.48, stdev=149.59
+     lat (msec): min=95, max=728, avg=440.53, stdev=149.59
+    clat percentiles (msec):
+     |  1.00th=[   95],  5.00th=[   95], 10.00th=[  201], 20.00th=[  401],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  464], 90.00th=[  625], 95.00th=[  726],
+     | 99.00th=[  726], 99.50th=[  726], 99.90th=[  726], 99.95th=[  726],
+     | 99.99th=[  726]
+   bw (  KiB/s): min=  256, max=  512, per=10.92%, avg=277.33, stdev=73.90, samples=12
+   iops        : min=    2, max=    4, avg= 2.17, stdev= 0.58, samples=12
+  lat (msec)   : 100=6.25%, 250=6.25%, 500=62.50%, 750=18.75%
+  cpu          : usr=0.01%, sys=0.00%, ctx=32, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=2536KiB/s (2597kB/s), 239KiB/s-281KiB/s (245kB/s-288kB/s), io=17.2MiB (18.1MB), run=6472-6966msec
+high-rand-write-/mnt/gfs: (g=0): rw=randwrite, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+fio: pid=31457, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31456, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31460, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31463, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31459, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31458, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31462, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31455, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31454, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31461, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31454: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=266KiB/s (273kB/s)(1920KiB/7206msec); 0 zone resets
+    slat (usec): min=43, max=315, avg=66.24, stdev=66.54
+    clat (msec): min=70, max=818, avg=462.36, stdev=172.83
+     lat (msec): min=70, max=818, avg=462.41, stdev=172.83
+    clat percentiles (msec):
+     |  1.00th=[   70],  5.00th=[   70], 10.00th=[  359], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  405], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  451], 90.00th=[  701], 95.00th=[  818],
+     | 99.00th=[  818], 99.50th=[  818], 99.90th=[  818], 99.95th=[  818],
+     | 99.99th=[  818]
+   bw (  KiB/s): min=  220, max=  512, per=11.67%, avg=292.62, stdev=97.87, samples=13
+   iops        : min=    1, max=    4, avg= 2.23, stdev= 0.83, samples=13
+  lat (msec)   : 100=6.25%, 500=68.75%, 750=12.50%, 1000=6.25%
+  cpu          : usr=0.01%, sys=0.00%, ctx=32, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31455: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=278KiB/s (285kB/s)(2048KiB/7369msec); 0 zone resets
+    slat (usec): min=42, max=311, avg=63.85, stdev=63.81
+    clat (msec): min=145, max=955, avg=443.59, stdev=192.25
+     lat (msec): min=145, max=955, avg=443.65, stdev=192.28
+    clat percentiles (msec):
+     |  1.00th=[  146],  5.00th=[  146], 10.00th=[  169], 20.00th=[  393],
+     | 30.00th=[  401], 40.00th=[  414], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  447], 90.00th=[  760], 95.00th=[  953],
+     | 99.00th=[  953], 99.50th=[  953], 99.90th=[  953], 99.95th=[  953],
+     | 99.99th=[  953]
+   bw (  KiB/s): min=  200, max=  512, per=11.51%, avg=288.57, stdev=95.82, samples=14
+   iops        : min=    1, max=    4, avg= 2.21, stdev= 0.80, samples=14
+  lat (msec)   : 250=11.76%, 500=70.59%, 1000=11.76%
+  cpu          : usr=0.01%, sys=0.00%, ctx=34, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.6%, 4=94.4%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,17,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31456: Fri Apr 15 21:33:03 2022
+  write: IOPS=1, BW=236KiB/s (241kB/s)(1664KiB/7064msec); 0 zone resets
+    slat (usec): min=39, max=372, avg=73.02, stdev=86.30
+    clat (msec): min=389, max=804, avg=524.29, stdev=149.29
+     lat (msec): min=389, max=804, avg=524.37, stdev=149.33
+    clat percentiles (msec):
+     |  1.00th=[  388],  5.00th=[  388], 10.00th=[  401], 20.00th=[  405],
+     | 30.00th=[  443], 40.00th=[  447], 50.00th=[  447], 60.00th=[  451],
+     | 70.00th=[  535], 80.00th=[  743], 90.00th=[  776], 95.00th=[  802],
+     | 99.00th=[  802], 99.50th=[  802], 99.90th=[  802], 99.95th=[  802],
+     | 99.99th=[  802]
+   bw (  KiB/s): min=  173, max=  512, per=10.83%, avg=271.73, stdev=83.49, samples=11
+   iops        : min=    1, max=    4, avg= 2.09, stdev= 0.70, samples=11
+  lat (msec)   : 500=57.14%, 750=21.43%, 1000=14.29%
+  cpu          : usr=0.00%, sys=0.00%, ctx=29, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31457: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=277KiB/s (284kB/s)(1920KiB/6933msec); 0 zone resets
+    slat (usec): min=40, max=402, avg=73.24, stdev=88.08
+    clat (msec): min=100, max=843, avg=446.04, stdev=196.30
+     lat (msec): min=100, max=843, avg=446.12, stdev=196.34
+    clat percentiles (msec):
+     |  1.00th=[  101],  5.00th=[  101], 10.00th=[  167], 20.00th=[  268],
+     | 30.00th=[  405], 40.00th=[  405], 50.00th=[  443], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  451], 90.00th=[  743], 95.00th=[  844],
+     | 99.00th=[  844], 99.50th=[  844], 99.90th=[  844], 99.95th=[  844],
+     | 99.99th=[  844]
+   bw (  KiB/s): min=  211, max=  768, per=12.83%, avg=321.73, stdev=167.98, samples=11
+   iops        : min=    1, max=    6, avg= 2.45, stdev= 1.37, samples=11
+  lat (msec)   : 250=12.50%, 500=62.50%, 750=12.50%, 1000=6.25%
+  cpu          : usr=0.01%, sys=0.00%, ctx=33, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31458: Fri Apr 15 21:33:03 2022
+  write: IOPS=1, BW=230KiB/s (235kB/s)(1664KiB/7248msec); 0 zone resets
+    slat (usec): min=44, max=376, avg=72.21, stdev=87.52
+    clat (msec): min=395, max=868, avg=536.85, stdev=187.48
+     lat (msec): min=396, max=868, avg=536.90, stdev=187.48
+    clat percentiles (msec):
+     |  1.00th=[  397],  5.00th=[  397], 10.00th=[  401], 20.00th=[  401],
+     | 30.00th=[  405], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  667], 80.00th=[  802], 90.00th=[  852], 95.00th=[  869],
+     | 99.00th=[  869], 99.50th=[  869], 99.90th=[  869], 99.95th=[  869],
+     | 99.99th=[  869]
+   bw (  KiB/s): min=  247, max=  512, per=12.03%, avg=301.73, stdev=104.00, samples=11
+   iops        : min=    1, max=    4, avg= 2.27, stdev= 0.90, samples=11
+  lat (msec)   : 500=64.29%, 750=7.14%, 1000=21.43%
+  cpu          : usr=0.00%, sys=0.00%, ctx=29, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31459: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=263KiB/s (270kB/s)(1920KiB/7291msec); 0 zone resets
+    slat (usec): min=43, max=176, avg=56.46, stdev=32.56
+    clat (msec): min=195, max=742, avg=466.81, stdev=151.86
+     lat (msec): min=195, max=742, avg=466.87, stdev=151.88
+    clat percentiles (msec):
+     |  1.00th=[  197],  5.00th=[  197], 10.00th=[  266], 20.00th=[  397],
+     | 30.00th=[  405], 40.00th=[  405], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  584], 90.00th=[  718], 95.00th=[  743],
+     | 99.00th=[  743], 99.50th=[  743], 99.90th=[  743], 99.95th=[  743],
+     | 99.99th=[  743]
+   bw (  KiB/s): min=  228, max=  768, per=12.67%, avg=317.67, stdev=160.35, samples=12
+   iops        : min=    1, max=    6, avg= 2.42, stdev= 1.31, samples=12
+  lat (msec)   : 250=6.25%, 500=62.50%, 750=25.00%
+  cpu          : usr=0.00%, sys=0.00%, ctx=32, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31460: Fri Apr 15 21:33:03 2022
+  write: IOPS=1, BW=234KiB/s (240kB/s)(1664KiB/7114msec); 0 zone resets
+    slat (nsec): min=43511, max=71099, avg=51642.86, stdev=9266.24
+    clat (msec): min=401, max=864, avg=499.60, stdev=133.17
+     lat (msec): min=401, max=864, avg=499.66, stdev=133.17
+    clat percentiles (msec):
+     |  1.00th=[  401],  5.00th=[  401], 10.00th=[  401], 20.00th=[  409],
+     | 30.00th=[  439], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  489], 80.00th=[  584], 90.00th=[  667], 95.00th=[  869],
+     | 99.00th=[  869], 99.50th=[  869], 99.90th=[  869], 99.95th=[  869],
+     | 99.99th=[  869]
+   bw (  KiB/s): min=  239, max=  512, per=10.99%, avg=275.92, stdev=74.51, samples=12
+   iops        : min=    1, max=    4, avg= 2.08, stdev= 0.67, samples=12
+  lat (msec)   : 500=71.43%, 750=14.29%, 1000=7.14%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31461: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=279KiB/s (286kB/s)(2048KiB/7344msec); 0 zone resets
+    slat (usec): min=45, max=167, avg=55.87, stdev=28.89
+    clat (msec): min=105, max=751, avg=444.10, stdev=172.55
+     lat (msec): min=106, max=751, avg=444.16, stdev=172.53
+    clat percentiles (msec):
+     |  1.00th=[  107],  5.00th=[  107], 10.00th=[  163], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  609], 90.00th=[  693], 95.00th=[  751],
+     | 99.00th=[  751], 99.50th=[  751], 99.90th=[  751], 99.95th=[  751],
+     | 99.99th=[  751]
+   bw (  KiB/s): min=  210, max=  768, per=14.71%, avg=368.18, stdev=179.56, samples=11
+   iops        : min=    1, max=    6, avg= 2.82, stdev= 1.47, samples=11
+  lat (msec)   : 250=11.76%, 500=58.82%, 750=17.65%, 1000=5.88%
+  cpu          : usr=0.00%, sys=0.01%, ctx=34, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.6%, 4=94.4%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,17,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31462: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=273KiB/s (280kB/s)(1920KiB/7025msec); 0 zone resets
+    slat (nsec): min=42534, max=97848, avg=52141.00, stdev=13118.98
+    clat (msec): min=70, max=1344, avg=450.44, stdev=311.04
+     lat (msec): min=70, max=1344, avg=450.49, stdev=311.03
+    clat percentiles (msec):
+     |  1.00th=[   71],  5.00th=[   71], 10.00th=[  133], 20.00th=[  167],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  405], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  451], 90.00th=[  885], 95.00th=[ 1351],
+     | 99.00th=[ 1351], 99.50th=[ 1351], 99.90th=[ 1351], 99.95th=[ 1351],
+     | 99.99th=[ 1351]
+   bw (  KiB/s): min=  196, max=  768, per=13.03%, avg=326.80, stdev=176.75, samples=10
+   iops        : min=    1, max=    6, avg= 2.50, stdev= 1.43, samples=10
+  lat (msec)   : 100=6.25%, 250=12.50%, 500=62.50%, 1000=6.25%, 2000=6.25%
+  cpu          : usr=0.01%, sys=0.00%, ctx=32, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31463: Fri Apr 15 21:33:03 2022
+  write: IOPS=2, BW=251KiB/s (257kB/s)(1664KiB/6622msec); 0 zone resets
+    slat (usec): min=42, max=349, avg=69.84, stdev=80.71
+    clat (msec): min=326, max=761, avg=488.78, stdev=135.41
+     lat (msec): min=326, max=761, avg=488.85, stdev=135.46
+    clat percentiles (msec):
+     |  1.00th=[  326],  5.00th=[  326], 10.00th=[  401], 20.00th=[  401],
+     | 30.00th=[  414], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  625], 90.00th=[  751], 95.00th=[  760],
+     | 99.00th=[  760], 99.50th=[  760], 99.90th=[  760], 99.95th=[  760],
+     | 99.99th=[  760]
+   bw (  KiB/s): min=  256, max=  512, per=11.07%, avg=277.33, stdev=73.90, samples=12
+   iops        : min=    2, max=    4, avg= 2.17, stdev= 0.58, samples=12
+  lat (msec)   : 500=71.43%, 750=7.14%, 1000=14.29%
+  cpu          : usr=0.00%, sys=0.00%, ctx=29, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=2501KiB/s (2561kB/s), 230KiB/s-279KiB/s (235kB/s-286kB/s), io=18.0MiB (18.9MB), run=6622-7369msec
+high-rand-write-/mnt/gfs: (g=0): rw=randwrite, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+...
+fio-3.29-112-gc3773
+Starting 10 processes
+fio: pid=31586, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31587, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31588, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31583, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31580, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31585, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31582, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31589, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31581, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+fio: pid=31584, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31580: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=281KiB/s (288kB/s)(1792KiB/6379msec); 0 zone resets
+    slat (usec): min=42, max=236, avg=62.44, stdev=48.50
+    clat (msec): min=53, max=810, avg=432.60, stdev=160.02
+     lat (msec): min=53, max=810, avg=432.65, stdev=160.01
+    clat percentiles (msec):
+     |  1.00th=[   54],  5.00th=[   54], 10.00th=[  347], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  405], 60.00th=[  414],
+     | 70.00th=[  447], 80.00th=[  527], 90.00th=[  584], 95.00th=[  810],
+     | 99.00th=[  810], 99.50th=[  810], 99.90th=[  810], 99.95th=[  810],
+     | 99.99th=[  810]
+   bw (  KiB/s): min=  256, max=  512, per=11.69%, avg=302.55, stdev=103.56, samples=11
+   iops        : min=    2, max=    4, avg= 2.36, stdev= 0.81, samples=11
+  lat (msec)   : 100=6.67%, 500=66.67%, 750=13.33%, 1000=6.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=30, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31581: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=295KiB/s (302kB/s)(1920KiB/6516msec); 0 zone resets
+    slat (usec): min=43, max=161, avg=55.45, stdev=28.51
+    clat (msec): min=87, max=746, avg=418.35, stdev=160.60
+     lat (msec): min=87, max=746, avg=418.41, stdev=160.61
+    clat percentiles (msec):
+     |  1.00th=[   88],  5.00th=[   88], 10.00th=[  131], 20.00th=[  355],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  447], 80.00th=[  451], 90.00th=[  642], 95.00th=[  743],
+     | 99.00th=[  743], 99.50th=[  743], 99.90th=[  743], 99.95th=[  743],
+     | 99.99th=[  743]
+   bw (  KiB/s): min=  247, max=  512, per=11.66%, avg=301.73, stdev=104.00, samples=11
+   iops        : min=    1, max=    4, avg= 2.27, stdev= 0.90, samples=11
+  lat (msec)   : 100=6.25%, 250=6.25%, 500=68.75%, 750=12.50%
+  cpu          : usr=0.02%, sys=0.00%, ctx=32, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31582: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=257KiB/s (263kB/s)(1664KiB/6470msec); 0 zone resets
+    slat (usec): min=46, max=180, avg=68.66, stdev=42.46
+    clat (msec): min=283, max=743, avg=472.71, stdev=130.66
+     lat (msec): min=283, max=743, avg=472.77, stdev=130.66
+    clat percentiles (msec):
+     |  1.00th=[  284],  5.00th=[  284], 10.00th=[  359], 20.00th=[  401],
+     | 30.00th=[  409], 40.00th=[  409], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  485], 80.00th=[  584], 90.00th=[  701], 95.00th=[  743],
+     | 99.00th=[  743], 99.50th=[  743], 99.90th=[  743], 99.95th=[  743],
+     | 99.99th=[  743]
+   bw (  KiB/s): min=  238, max=  256, per=9.84%, avg=254.50, stdev= 5.20, samples=12
+   iops        : min=    1, max=    2, avg= 1.92, stdev= 0.29, samples=12
+  lat (msec)   : 500=71.43%, 750=21.43%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31583: Fri Apr 15 21:36:54 2022
+  write: IOPS=1, BW=224KiB/s (230kB/s)(1408KiB/6281msec); 0 zone resets
+    slat (nsec): min=44977, max=70680, avg=52264.50, stdev=8469.15
+    clat (msec): min=393, max=935, avg=542.37, stdev=197.87
+     lat (msec): min=393, max=935, avg=542.42, stdev=197.87
+    clat percentiles (msec):
+     |  1.00th=[  393],  5.00th=[  393], 10.00th=[  397], 20.00th=[  401],
+     | 30.00th=[  405], 40.00th=[  405], 50.00th=[  405], 60.00th=[  456],
+     | 70.00th=[  667], 80.00th=[  718], 90.00th=[  793], 95.00th=[  936],
+     | 99.00th=[  936], 99.50th=[  936], 99.90th=[  936], 99.95th=[  936],
+     | 99.99th=[  936]
+   bw (  KiB/s): min=  256, max=  256, per=9.91%, avg=256.00, stdev= 0.00, samples=11
+   iops        : min=    2, max=    2, avg= 2.00, stdev= 0.00, samples=11
+  lat (msec)   : 500=58.33%, 750=16.67%, 1000=16.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=24, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=7.7%, 4=92.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,12,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31584: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=237KiB/s (243kB/s)(1408KiB/5938msec); 0 zone resets
+    slat (usec): min=44, max=219, avg=62.35, stdev=49.49
+    clat (msec): min=315, max=836, avg=511.72, stdev=166.31
+     lat (msec): min=315, max=836, avg=511.79, stdev=166.31
+    clat percentiles (msec):
+     |  1.00th=[  317],  5.00th=[  317], 10.00th=[  359], 20.00th=[  401],
+     | 30.00th=[  401], 40.00th=[  447], 50.00th=[  447], 60.00th=[  489],
+     | 70.00th=[  550], 80.00th=[  625], 90.00th=[  760], 95.00th=[  835],
+     | 99.00th=[  835], 99.50th=[  835], 99.90th=[  835], 99.95th=[  835],
+     | 99.99th=[  835]
+   bw (  KiB/s): min=  256, max=  512, per=11.00%, avg=284.44, stdev=85.33, samples=9
+   iops        : min=    2, max=    4, avg= 2.22, stdev= 0.67, samples=9
+  lat (msec)   : 500=58.33%, 750=16.67%, 1000=16.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=24, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=7.7%, 4=92.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,12,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31585: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=263KiB/s (269kB/s)(1664KiB/6334msec); 0 zone resets
+    slat (usec): min=44, max=203, avg=60.03, stdev=41.49
+    clat (msec): min=357, max=885, avg=462.33, stdev=135.24
+     lat (msec): min=357, max=885, avg=462.38, stdev=135.24
+    clat percentiles (msec):
+     |  1.00th=[  359],  5.00th=[  359], 10.00th=[  397], 20.00th=[  397],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  405], 60.00th=[  443],
+     | 70.00th=[  468], 80.00th=[  468], 90.00th=[  535], 95.00th=[  885],
+     | 99.00th=[  885], 99.50th=[  885], 99.90th=[  885], 99.95th=[  885],
+     | 99.99th=[  885]
+   bw (  KiB/s): min=  256, max=  512, per=10.80%, avg=279.27, stdev=77.19, samples=11
+   iops        : min=    2, max=    4, avg= 2.18, stdev= 0.60, samples=11
+  lat (msec)   : 500=78.57%, 750=7.14%, 1000=7.14%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31586: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=279KiB/s (286kB/s)(1792KiB/6412msec); 0 zone resets
+    slat (nsec): min=46374, max=88908, avg=52478.73, stdev=11783.84
+    clat (msec): min=95, max=668, avg=435.70, stdev=152.78
+     lat (msec): min=95, max=669, avg=435.75, stdev=152.78
+    clat percentiles (msec):
+     |  1.00th=[   96],  5.00th=[   96], 10.00th=[  178], 20.00th=[  359],
+     | 30.00th=[  447], 40.00th=[  447], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  472], 80.00th=[  600], 90.00th=[  609], 95.00th=[  667],
+     | 99.00th=[  667], 99.50th=[  667], 99.90th=[  667], 99.95th=[  667],
+     | 99.99th=[  667]
+   bw (  KiB/s): min=  256, max=  512, per=10.73%, avg=277.33, stdev=73.90, samples=12
+   iops        : min=    2, max=    4, avg= 2.17, stdev= 0.58, samples=12
+  lat (msec)   : 100=6.67%, 250=6.67%, 500=60.00%, 750=20.00%
+  cpu          : usr=0.00%, sys=0.00%, ctx=30, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31587: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=274KiB/s (280kB/s)(1792KiB/6546msec); 0 zone resets
+    slat (nsec): min=44279, max=51334, avg=48530.47, stdev=2306.78
+    clat (msec): min=160, max=713, avg=442.98, stdev=131.92
+     lat (msec): min=160, max=713, avg=443.03, stdev=131.92
+    clat percentiles (msec):
+     |  1.00th=[  161],  5.00th=[  161], 10.00th=[  355], 20.00th=[  401],
+     | 30.00th=[  405], 40.00th=[  418], 50.00th=[  430], 60.00th=[  443],
+     | 70.00th=[  447], 80.00th=[  451], 90.00th=[  693], 95.00th=[  718],
+     | 99.00th=[  718], 99.50th=[  718], 99.90th=[  718], 99.95th=[  718],
+     | 99.99th=[  718]
+   bw (  KiB/s): min=  227, max=  512, per=11.58%, avg=299.91, stdev=105.22, samples=11
+   iops        : min=    1, max=    4, avg= 2.27, stdev= 0.90, samples=11
+  lat (msec)   : 250=6.67%, 500=73.33%, 750=13.33%
+  cpu          : usr=0.00%, sys=0.00%, ctx=30, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.2%, 4=93.8%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,15,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31588: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=291KiB/s (298kB/s)(1920KiB/6592msec); 0 zone resets
+    slat (usec): min=45, max=216, avg=70.23, stdev=53.56
+    clat (msec): min=65, max=636, avg=418.52, stdev=143.82
+     lat (msec): min=65, max=636, avg=418.58, stdev=143.82
+    clat percentiles (msec):
+     |  1.00th=[   66],  5.00th=[   66], 10.00th=[  178], 20.00th=[  355],
+     | 30.00th=[  401], 40.00th=[  439], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  451], 80.00th=[  468], 90.00th=[  584], 95.00th=[  634],
+     | 99.00th=[  634], 99.50th=[  634], 99.90th=[  634], 99.95th=[  634],
+     | 99.99th=[  634]
+   bw (  KiB/s): min=  210, max=  512, per=11.38%, avg=294.83, stdev=102.29, samples=12
+   iops        : min=    1, max=    4, avg= 2.25, stdev= 0.87, samples=12
+  lat (msec)   : 100=6.25%, 250=6.25%, 500=62.50%, 750=18.75%
+  cpu          : usr=0.02%, sys=0.00%, ctx=32, majf=0, minf=45
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=5.9%, 4=94.1%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,16,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+high-rand-write-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=31589: Fri Apr 15 21:36:54 2022
+  write: IOPS=2, BW=266KiB/s (273kB/s)(1664KiB/6247msec); 0 zone resets
+    slat (usec): min=46, max=4355, avg=357.17, stdev=1150.89
+    clat (msec): min=71, max=959, avg=459.84, stdev=220.14
+     lat (msec): min=71, max=960, avg=460.22, stdev=220.04
+    clat percentiles (msec):
+     |  1.00th=[   72],  5.00th=[   72], 10.00th=[  192], 20.00th=[  397],
+     | 30.00th=[  401], 40.00th=[  401], 50.00th=[  447], 60.00th=[  447],
+     | 70.00th=[  460], 80.00th=[  676], 90.00th=[  684], 95.00th=[  961],
+     | 99.00th=[  961], 99.50th=[  961], 99.90th=[  961], 99.95th=[  961],
+     | 99.99th=[  961]
+   bw (  KiB/s): min=  256, max=  512, per=12.86%, avg=332.80, stdev=123.66, samples=10
+   iops        : min=    2, max=    4, avg= 2.60, stdev= 0.97, samples=10
+  lat (msec)   : 100=7.14%, 250=7.14%, 500=57.14%, 750=14.29%, 1000=7.14%
+  cpu          : usr=0.00%, sys=0.00%, ctx=28, majf=0, minf=44
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=6.7%, 4=93.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,14,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=2583KiB/s (2645kB/s), 224KiB/s-295KiB/s (230kB/s-302kB/s), io=16.6MiB (17.4MB), run=5938-6592msec

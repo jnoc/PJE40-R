@@ -1,0 +1,82 @@
+Started: 15-04-2022--17-47-48
+
+low-rand-read-/mnt/gfs: (g=0): rw=randread, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=4215, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-rand-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=4215: Fri Apr 15 17:47:52 2022
+  read: IOPS=60, BW=7111KiB/s (7282kB/s)(1408KiB/198msec)
+    slat (nsec): min=10546, max=11524, avg=11046.33, stdev=288.46
+    clat (usec): min=12950, max=22541, avg=17937.46, stdev=3037.36
+     lat (usec): min=12963, max=22553, avg=17950.25, stdev=3037.22
+    clat percentiles (usec):
+     |  1.00th=[12911],  5.00th=[12911], 10.00th=[15401], 20.00th=[15401],
+     | 30.00th=[15533], 40.00th=[17171], 50.00th=[17695], 60.00th=[18744],
+     | 70.00th=[19792], 80.00th=[19792], 90.00th=[22414], 95.00th=[22414],
+     | 99.00th=[22414], 99.50th=[22414], 99.90th=[22414], 99.95th=[22414],
+     | 99.99th=[22414]
+  lat (msec)   : 20=75.00%, 50=16.67%
+  cpu          : usr=0.00%, sys=0.00%, ctx=12, majf=0, minf=47
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=7.7%, 4=92.3%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=12,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=7111KiB/s (7282kB/s), 7111KiB/s-7111KiB/s (7282kB/s-7282kB/s), io=1408KiB (1442kB), run=198-198msec
+low-rand-read-/mnt/gfs: (g=0): rw=randread, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=5821, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-rand-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=5821: Fri Apr 15 17:52:03 2022
+  read: IOPS=72, BW=9000KiB/s (9216kB/s)(4608KiB/512msec)
+    slat (nsec): min=10267, max=22489, avg=11233.14, stdev=1984.63
+    clat (usec): min=12016, max=22575, avg=14184.70, stdev=3188.44
+     lat (usec): min=12028, max=22589, avg=14197.67, stdev=3188.34
+    clat percentiles (usec):
+     |  1.00th=[11994],  5.00th=[11994], 10.00th=[11994], 20.00th=[12125],
+     | 30.00th=[12125], 40.00th=[12125], 50.00th=[12125], 60.00th=[12780],
+     | 70.00th=[15533], 80.00th=[16909], 90.00th=[19268], 95.00th=[22414],
+     | 99.00th=[22676], 99.50th=[22676], 99.90th=[22676], 99.95th=[22676],
+     | 99.99th=[22676]
+   bw (  KiB/s): min= 8721, max= 8721, per=96.90%, avg=8721.00, stdev= 0.00, samples=1
+   iops        : min=   68, max=   68, avg=68.00, stdev= 0.00, samples=1
+  lat (msec)   : 20=91.89%, 50=5.41%
+  cpu          : usr=0.00%, sys=0.20%, ctx=37, majf=0, minf=47
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=2.6%, 4=97.4%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=37,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=9000KiB/s (9216kB/s), 9000KiB/s-9000KiB/s (9216kB/s-9216kB/s), io=4608KiB (4719kB), run=512-512msec
+low-rand-read-/mnt/gfs: (g=0): rw=randread, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=7271, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-rand-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=7271: Fri Apr 15 17:55:47 2022
+  read: IOPS=64, BW=7906KiB/s (8096kB/s)(2688KiB/340msec)
+    slat (nsec): min=10197, max=12502, avg=10812.73, stdev=609.95
+    clat (usec): min=12070, max=22964, avg=16153.94, stdev=3740.51
+     lat (usec): min=12083, max=22976, avg=16166.37, stdev=3740.24
+    clat percentiles (usec):
+     |  1.00th=[12125],  5.00th=[12125], 10.00th=[12125], 20.00th=[12125],
+     | 30.00th=[12780], 40.00th=[15401], 50.00th=[15664], 60.00th=[17171],
+     | 70.00th=[17957], 80.00th=[19268], 90.00th=[22414], 95.00th=[22676],
+     | 99.00th=[22938], 99.50th=[22938], 99.90th=[22938], 99.95th=[22938],
+     | 99.99th=[22938]
+  lat (msec)   : 20=81.82%, 50=13.64%
+  cpu          : usr=0.00%, sys=0.00%, ctx=22, majf=0, minf=46
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=4.3%, 4=95.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=22,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=7906KiB/s (8096kB/s), 7906KiB/s-7906KiB/s (8096kB/s-8096kB/s), io=2688KiB (2753kB), run=340-340msec

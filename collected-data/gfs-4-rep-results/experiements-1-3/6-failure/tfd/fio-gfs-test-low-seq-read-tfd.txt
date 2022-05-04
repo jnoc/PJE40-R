@@ -1,0 +1,60 @@
+Started: 15-04-2022--18-24-57
+
+low-seq-read-/mnt/gfs: (g=0): rw=read, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=18576, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-seq-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=18576: Fri Apr 15 18:25:01 2022
+  read: IOPS=73, BW=9317KiB/s (9541kB/s)(30.5MiB/3352msec)
+  cpu          : usr=0.00%, sys=0.21%, ctx=246, majf=0, minf=47
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.4%, 4=99.6%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=245,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=9317KiB/s (9541kB/s), 9317KiB/s-9317KiB/s (9541kB/s-9541kB/s), io=30.5MiB (32.0MB), run=3352-3352msec
+low-seq-read-/mnt/gfs: (g=0): rw=read, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=20170, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-seq-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=20170: Fri Apr 15 18:29:09 2022
+  read: IOPS=71, BW=9110KiB/s (9329kB/s)(30.0MiB/3372msec)
+  cpu          : usr=0.00%, sys=0.21%, ctx=242, majf=0, minf=49
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.4%, 4=99.6%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=241,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=9110KiB/s (9329kB/s), 9110KiB/s-9110KiB/s (9329kB/s-9329kB/s), io=30.0MiB (31.5MB), run=3372-3372msec
+low-seq-read-/mnt/gfs: (g=0): rw=read, bs=(R) 128KiB-128KiB, (W) 128KiB-128KiB, (T) 128KiB-128KiB, ioengine=libaio, iodepth=1
+fio-3.29-112-gc3773
+Starting 1 process
+fio: pid=21769, err=107/file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected
+
+low-seq-read-/mnt/gfs: (groupid=0, jobs=1): err=107 (file:io_u.c:1846, func=io_u error, error=Transport endpoint is not connected): pid=21769: Fri Apr 15 18:33:20 2022
+  read: IOPS=76, BW=9333KiB/s (9557kB/s)(2688KiB/288msec)
+    slat (nsec): min=10196, max=15295, avg=11164.95, stdev=1224.96
+    clat (usec): min=12522, max=27719, avg=13672.31, stdev=3488.75
+     lat (usec): min=12535, max=27731, avg=13685.08, stdev=3488.57
+    clat percentiles (usec):
+     |  1.00th=[12518],  5.00th=[12518], 10.00th=[12518], 20.00th=[12518],
+     | 30.00th=[12518], 40.00th=[12649], 50.00th=[12649], 60.00th=[12649],
+     | 70.00th=[12780], 80.00th=[12780], 90.00th=[12780], 95.00th=[18744],
+     | 99.00th=[27657], 99.50th=[27657], 99.90th=[27657], 99.95th=[27657],
+     | 99.99th=[27657]
+  lat (msec)   : 20=90.91%, 50=4.55%
+  cpu          : usr=0.00%, sys=0.00%, ctx=22, majf=0, minf=48
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=4.3%, 4=95.7%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=22,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=9333KiB/s (9557kB/s), 9333KiB/s-9333KiB/s (9557kB/s-9557kB/s), io=2688KiB (2753kB), run=288-288msec
